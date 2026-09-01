@@ -1,0 +1,2172 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Self-Funded Growth OS — Build the Machine Before You Raise the Money</title>
+  <meta name="description" content="Capital-efficient growth systems for founder-led ecommerce brands. Find the constraint. Fix the system. Prove it works. Book a Growth Systems Diagnostic." />
+  <meta name="robots" content="index, follow" />
+  <meta property="og:title" content="Self-Funded Growth OS" />
+  <meta property="og:description" content="Capital is not the enemy. Broken growth economics are." />
+  <meta property="og:type" content="website" />
+
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&family=JetBrains+Mono:wght@300;400;500;600&display=swap" rel="stylesheet" />
+
+  <style>
+    /* ============================================================
+       DESIGN TOKENS
+    ============================================================ */
+    :root {
+      --bg:           #090809;
+      --surface:      #111014;
+      --surface-hi:   #161419;
+      --copper:       #A8653F;
+      --gold:         #DFA75F;
+      --gold-border:  rgba(223,167,95,0.22);
+      --ivory:        #E7D7C7;
+      --muted:        #928A87;
+      --muted-dark:   #504A48;
+      --demand:       #4A9B9B;
+      --conversion:   #7B5EA7;
+      --retention:    #4A7C59;
+      --scale:        #C4852A;
+      --border:       rgba(255,255,255,0.06);
+      --border-hi:    rgba(255,255,255,0.10);
+      --radius:       8px;
+      --radius-lg:    14px;
+      --radius-xl:    22px;
+      --trans:        all 0.3s cubic-bezier(0.4,0,0.2,1);
+    }
+
+    /* ============================================================
+       RESET & BASE
+    ============================================================ */
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+    html { scroll-behavior: smooth; }
+
+    body {
+      font-family: 'Inter', system-ui, sans-serif;
+      background: var(--bg);
+      color: var(--ivory);
+      line-height: 1.6;
+      -webkit-font-smoothing: antialiased;
+      overflow-x: hidden;
+    }
+
+    /* dot grid */
+    body::before {
+      content: '';
+      position: fixed; inset: 0;
+      background-image: radial-gradient(circle, rgba(255,255,255,0.028) 1px, transparent 1px);
+      background-size: 40px 40px;
+      pointer-events: none; z-index: 0;
+    }
+
+    /* ============================================================
+       TYPOGRAPHY
+    ============================================================ */
+    .eyebrow {
+      font-family: 'JetBrains Mono', monospace;
+      font-size: 0.68rem; font-weight: 500;
+      letter-spacing: 0.2em; text-transform: uppercase;
+      color: var(--gold);
+      display: flex; align-items: center; gap: 0.8rem;
+      margin-bottom: 1.5rem;
+    }
+    .eyebrow::before {
+      content: ''; display: inline-block;
+      width: 20px; height: 1px;
+      background: var(--gold); flex-shrink: 0;
+    }
+
+    .sys-label {
+      font-family: 'JetBrains Mono', monospace;
+      font-size: 0.62rem; letter-spacing: 0.16em;
+      text-transform: uppercase; color: var(--muted-dark);
+    }
+
+    h1 {
+      font-size: clamp(3rem, 5.8vw, 5.8rem);
+      font-weight: 800; line-height: 1.02;
+      letter-spacing: -0.035em; color: var(--ivory);
+    }
+    h2 {
+      font-size: clamp(2.2rem, 4vw, 3.8rem);
+      font-weight: 700; line-height: 1.08;
+      letter-spacing: -0.028em; color: var(--ivory);
+    }
+    h3 {
+      font-size: clamp(1.25rem, 2vw, 1.75rem);
+      font-weight: 700; line-height: 1.25;
+      letter-spacing: -0.018em; color: var(--ivory);
+    }
+    p { color: var(--muted); font-size: 0.975rem; line-height: 1.8; }
+    strong { color: var(--ivory); font-weight: 600; }
+
+    /* ============================================================
+       LAYOUT
+    ============================================================ */
+    .container {
+      max-width: 1240px; margin: 0 auto;
+      padding: 0 2.5rem;
+      position: relative; z-index: 1;
+    }
+    section { position: relative; z-index: 1; }
+
+    /* ============================================================
+       BUTTONS
+    ============================================================ */
+    .btn-primary {
+      display: inline-flex; align-items: center; gap: 0.5rem;
+      padding: 0.9rem 2rem;
+      background: var(--gold); color: #0c0a0d;
+      font-family: 'Inter', sans-serif; font-size: 0.875rem;
+      font-weight: 700; letter-spacing: 0.01em;
+      border: none; border-radius: var(--radius);
+      cursor: pointer; text-decoration: none;
+      transition: var(--trans);
+      position: relative; overflow: hidden; white-space: nowrap;
+    }
+    .btn-primary::after {
+      content: ''; position: absolute; inset: 0;
+      background: linear-gradient(135deg, rgba(255,255,255,0.12) 0%, transparent 55%);
+      opacity: 0; transition: opacity 0.3s;
+    }
+    .btn-primary:hover { background: #ebb96b; transform: translateY(-2px); box-shadow: 0 10px 30px rgba(223,167,95,0.3); }
+    .btn-primary:hover::after { opacity: 1; }
+
+    .btn-ghost {
+      display: inline-flex; align-items: center; gap: 0.5rem;
+      padding: 0.9rem 1.6rem;
+      background: transparent; color: var(--muted);
+      font-family: 'Inter', sans-serif; font-size: 0.875rem; font-weight: 500;
+      border: 1px solid var(--border); border-radius: var(--radius);
+      cursor: pointer; text-decoration: none; transition: var(--trans);
+    }
+    .btn-ghost:hover { color: var(--ivory); border-color: var(--border-hi); background: rgba(255,255,255,0.03); }
+
+    /* ============================================================
+       01 — HERO
+    ============================================================ */
+    #hero {
+      min-height: 90vh;
+      display: grid; grid-template-columns: 55fr 45fr;
+      align-items: center;
+      padding: 5rem 0 3rem;
+      overflow: hidden;
+    }
+
+    .hero-left {
+      padding-left: max(2.5rem, calc((100vw - 1240px) / 2 + 2.5rem));
+      padding-right: 4rem;
+    }
+
+    .status-badge {
+      display: inline-flex; align-items: center; gap: 0.6rem;
+      padding: 0.38rem 1rem;
+      background: rgba(74,124,89,0.07);
+      border: 1px solid rgba(74,124,89,0.22);
+      border-radius: 100px; margin-bottom: 2.2rem;
+      font-family: 'JetBrains Mono', monospace;
+      font-size: 0.6rem; font-weight: 500;
+      letter-spacing: 0.15em; text-transform: uppercase;
+      color: var(--retention);
+    }
+    .status-dot {
+      width: 6px; height: 6px; border-radius: 50%;
+      background: var(--retention);
+      animation: pulse 2.5s ease-in-out infinite;
+    }
+    @keyframes pulse {
+      0%,100% { opacity:1; transform:scale(1); }
+      50%      { opacity:0.4; transform:scale(0.72); }
+    }
+
+    .hero-h1 { margin-bottom: 1.6rem; }
+    .hero-h1 .gold { color: var(--gold); }
+
+    .hero-body {
+      font-size: 1.05rem; line-height: 1.85;
+      color: var(--muted); margin-bottom: 2.5rem; max-width: 540px;
+    }
+
+    .hero-ctas {
+      display: flex; align-items: center; gap: 1rem;
+      margin-bottom: 0.85rem; flex-wrap: wrap;
+    }
+
+    .hero-micro {
+      font-family: 'JetBrains Mono', monospace;
+      font-size: 0.62rem; color: var(--muted-dark);
+      letter-spacing: 0.1em; margin-bottom: 2.8rem;
+    }
+
+    .hero-profile-row {
+      display: flex; align-items: center; gap: 1.2rem;
+      padding: 1.2rem 1.4rem;
+      border: 1px solid var(--border);
+      border-left: 2px solid var(--gold);
+      background: rgba(223,167,95,0.03);
+      border-radius: 0 var(--radius) var(--radius) 0;
+    }
+    .hero-portrait {
+      width: 52px; height: 52px;
+      border-radius: 50%;
+      border: 1.5px solid var(--gold-border);
+      overflow: hidden; flex-shrink: 0;
+      background: var(--surface);
+    }
+    .hero-portrait img {
+      width: 100%; height: 100%;
+      object-fit: cover; object-position: top center;
+      filter: saturate(0.88);
+    }
+    .hero-quote p {
+      font-size: 0.875rem; font-style: italic;
+      color: var(--ivory); opacity: 0.7; line-height: 1.6;
+    }
+
+    .hero-right {
+      position: relative; height: 100%;
+      min-height: 520px;
+      display: flex; align-items: center; justify-content: center;
+    }
+    #hero-canvas { width: 100%; height: 100%; min-height: 520px; display: block; }
+    .hero-fade {
+      position: absolute; inset: 0;
+      background:
+        radial-gradient(ellipse 65% 65% at center, transparent 28%, var(--bg) 100%),
+        linear-gradient(to right, var(--bg) 0%, transparent 22%);
+      pointer-events: none;
+    }
+
+    /* floating module labels */
+    .hero-labels {
+      position: absolute; inset: 0;
+      pointer-events: none;
+      display: flex; flex-direction: column; justify-content: center;
+    }
+    .hml-row {
+      display: flex; justify-content: space-between;
+      padding: 0 2.5rem;
+    }
+    .hml-tag {
+      font-family: 'JetBrains Mono', monospace;
+      font-size: 0.55rem; letter-spacing: 0.14em; text-transform: uppercase;
+      padding: 0.25rem 0.6rem; border-radius: 100px; border: 1px solid; opacity: 0.65;
+    }
+    .hml-tag.demand     { color: var(--demand);     border-color: rgba(74,155,155,0.3);  background: rgba(74,155,155,0.05);  }
+    .hml-tag.conversion { color: var(--conversion); border-color: rgba(123,94,167,0.3);  background: rgba(123,94,167,0.05); }
+    .hml-tag.retention  { color: var(--retention);  border-color: rgba(74,124,89,0.3);   background: rgba(74,124,89,0.05);  }
+    .hml-tag.scale      { color: var(--scale);      border-color: rgba(196,133,42,0.3);  background: rgba(196,133,42,0.05); }
+
+    /* ============================================================
+       02 — PROBLEM
+    ============================================================ */
+    #problem { padding: 9rem 0; border-top: 1px solid var(--border); }
+
+    .problem-headline { max-width: 72%; margin-bottom: 4rem; }
+
+    .problem-cols {
+      display: grid; grid-template-columns: 1fr 1fr;
+      gap: 5rem; align-items: start; margin-bottom: 4rem;
+    }
+    .problem-text p { margin-bottom: 1.1rem; }
+    .problem-text p:last-child { margin-bottom: 0; }
+
+    .prob-canvas-wrap {
+      border-radius: var(--radius-lg); overflow: hidden;
+      border: 1px solid var(--border); background: var(--surface);
+      height: 260px; position: relative;
+    }
+    .prob-canvas-wrap canvas { width: 100%; height: 100%; display: block; }
+    .prob-canvas-label {
+      position: absolute; top: 50%; left: 50%;
+      transform: translate(-50%, -50%);
+      font-family: 'JetBrains Mono', monospace;
+      font-size: 0.58rem; letter-spacing: 0.2em; text-transform: uppercase;
+      color: var(--copper); background: rgba(168,101,63,0.1);
+      border: 1px solid rgba(168,101,63,0.25);
+      padding: 0.3rem 0.7rem; border-radius: 100px; pointer-events: none;
+    }
+
+    .diag-strip {
+      display: grid; grid-template-columns: repeat(4,1fr);
+      border: 1px solid var(--border); border-radius: var(--radius);
+      overflow: hidden; background: var(--surface); margin-bottom: 1.5rem;
+    }
+    .diag-item {
+      padding: 1.1rem 1.4rem;
+      display: flex; align-items: center; justify-content: space-between; gap: 0.5rem;
+      position: relative;
+    }
+    .diag-item + .diag-item { border-left: 1px solid var(--border); }
+    .diag-item span {
+      font-family: 'JetBrains Mono', monospace;
+      font-size: 0.62rem; letter-spacing: 0.12em; text-transform: uppercase;
+      color: var(--muted-dark);
+    }
+    .diag-item .arrow { font-size: 0.6rem; color: var(--muted-dark); opacity: 0.45; }
+    .diag-item.btl { background: rgba(168,101,63,0.06); }
+    .diag-item.btl::before {
+      content: ''; position: absolute;
+      top:0; left:0; right:0; height: 2px; background: var(--copper);
+    }
+    .diag-item.btl span { color: var(--copper); }
+    .btl-note {
+      font-family: 'JetBrains Mono', monospace; font-size: 0.48rem;
+      color: var(--copper); opacity: 0.7; letter-spacing: 0.12em; text-transform: uppercase;
+      position: absolute; bottom: 5px; left: 50%; transform: translateX(-50%);
+      white-space: nowrap;
+    }
+
+    .diag-lines { border: 1px solid var(--border); border-radius: var(--radius); overflow: hidden; }
+    .diag-line {
+      display: flex; align-items: center; gap: 1.25rem;
+      padding: 1rem 1.5rem; border-bottom: 1px solid var(--border);
+      transition: background 0.25s;
+    }
+    .diag-line:last-child { border-bottom: none; }
+    .diag-line:hover { background: rgba(255,255,255,0.02); }
+    .diag-line::before {
+      content: ''; width: 3px; height: 3px; border-radius: 50%;
+      background: var(--muted-dark); flex-shrink: 0;
+    }
+    .diag-line p { font-size: 0.85rem; }
+
+    /* ============================================================
+       03 — FRAMEWORK
+    ============================================================ */
+    #framework { padding: 9rem 0; border-top: 1px solid var(--border); }
+
+    .fw-header {
+      display: flex; justify-content: space-between;
+      align-items: flex-start; gap: 3rem; margin-bottom: 4rem;
+    }
+    .fw-header-right { max-width: 360px; text-align: right; padding-top: 0.5rem; }
+    .fw-header-right p { font-size: 0.9rem; }
+
+    .os-grid {
+      display: grid; grid-template-columns: repeat(4,1fr);
+      gap: 1px; background: var(--border);
+      border: 1px solid var(--border); border-radius: var(--radius-lg);
+      overflow: hidden; margin-bottom: 1.5rem;
+    }
+    .os-module {
+      background: var(--surface); padding: 2rem 1.75rem;
+      position: relative; cursor: default;
+      transition: all 0.4s cubic-bezier(0.4,0,0.2,1);
+      overflow: hidden;
+    }
+    .os-module::before {
+      content: ''; position: absolute;
+      top:0; left:0; right:0; height: 2px; opacity: 0.5; transition: opacity 0.3s;
+    }
+    .os-module[data-m="demand"]::before     { background: var(--demand); }
+    .os-module[data-m="conversion"]::before { background: var(--conversion); }
+    .os-module[data-m="retention"]::before  { background: var(--retention); }
+    .os-module[data-m="scale"]::before      { background: var(--scale); }
+    .os-module:hover { background: var(--surface-hi); transform: perspective(600px) translateY(-4px); box-shadow: 0 24px 48px rgba(0,0,0,0.5); z-index: 2; }
+    .os-module:hover::before { opacity: 1; }
+
+    .mod-num { font-family: 'JetBrains Mono', monospace; font-size: 0.6rem; color: var(--muted-dark); letter-spacing: 0.1em; margin-bottom: 1.4rem; }
+    .mod-chip {
+      display: inline-flex; align-items: center; justify-content: center;
+      padding: 0.28rem 0.55rem; border-radius: 4px;
+      font-family: 'JetBrains Mono', monospace; font-size: 0.52rem; font-weight: 600;
+      letter-spacing: 0.06em; margin-bottom: 1rem;
+    }
+    .os-module[data-m="demand"]     .mod-chip { background: rgba(74,155,155,0.1);  color: var(--demand);     border: 1px solid rgba(74,155,155,0.2);  }
+    .os-module[data-m="conversion"] .mod-chip { background: rgba(123,94,167,0.1);  color: var(--conversion); border: 1px solid rgba(123,94,167,0.2);  }
+    .os-module[data-m="retention"]  .mod-chip { background: rgba(74,124,89,0.1);   color: var(--retention);  border: 1px solid rgba(74,124,89,0.2);   }
+    .os-module[data-m="scale"]      .mod-chip { background: rgba(196,133,42,0.1);  color: var(--scale);      border: 1px solid rgba(196,133,42,0.2);  }
+
+    .mod-name    { font-size: 0.72rem; font-weight: 700; letter-spacing: 0.14em; text-transform: uppercase; color: var(--ivory); margin-bottom: 0.4rem; }
+    .mod-outcome { font-size: 0.95rem; font-weight: 600; color: var(--ivory); line-height: 1.4; margin-bottom: 0.6rem; }
+    .mod-desc    { font-family: 'JetBrains Mono', monospace; font-size: 0.62rem; color: var(--muted-dark); line-height: 1.6; margin-bottom: 1.4rem; }
+
+    .mod-metrics {
+      padding-top: 1.2rem; border-top: 1px solid var(--border);
+      display: flex; flex-direction: column; gap: 0.45rem;
+      opacity: 0; transform: translateY(6px); transition: all 0.35s cubic-bezier(0.4,0,0.2,1);
+    }
+    .os-module:hover .mod-metrics { opacity: 1; transform: translateY(0); }
+    .mod-metric { display: flex; justify-content: space-between; align-items: center; }
+    .mod-metric span { font-family: 'JetBrains Mono', monospace; font-size: 0.58rem; }
+    .mod-metric span:first-child { color: var(--muted-dark); letter-spacing: 0.08em; }
+    .mod-metric span:last-child  { color: var(--muted); }
+
+    .fw-closing {
+      text-align: center; padding: 2.5rem;
+      border: 1px solid var(--border);
+      border-radius: var(--radius-lg); background: var(--surface);
+    }
+    .fw-closing p { font-size: 0.95rem; }
+    .fw-closing p + p { margin-top: 0.4rem; }
+
+    /* ============================================================
+       04 — WHAT I DO
+    ============================================================ */
+    #what-i-do { padding: 9rem 0; border-top: 1px solid var(--border); }
+
+    .wi-header { max-width: 580px; margin-bottom: 5rem; }
+    .wi-header p { margin-top: 1.2rem; }
+
+    .work-blocks { position: relative; }
+
+    .sys-line {
+      position: absolute; left: 4.5rem; top: 0; bottom: 0;
+      width: 1px; z-index: 0;
+    }
+    .sys-line-bg   { position: absolute; inset: 0; background: var(--border); }
+    .sys-line-fill {
+      position: absolute; top: 0; left: 0; right: 0; height: 0%;
+      background: linear-gradient(to bottom, var(--gold), rgba(223,167,95,0.2));
+      box-shadow: 0 0 10px rgba(223,167,95,0.3);
+    }
+
+    .work-block {
+      display: grid; grid-template-columns: 9rem 1fr 340px;
+      gap: 2.5rem; align-items: start;
+      padding: 4rem 0; border-bottom: 1px solid var(--border);
+      position: relative; z-index: 1;
+    }
+    .work-block:last-child { border-bottom: none; }
+
+    .block-num {
+      font-family: 'JetBrains Mono', monospace;
+      font-size: 4.5rem; font-weight: 700; line-height: 1;
+      letter-spacing: -0.04em;
+      -webkit-text-stroke: 1px rgba(255,255,255,0.07);
+      color: transparent; text-align: center;
+    }
+    .block-lbl {
+      font-family: 'JetBrains Mono', monospace; font-size: 0.62rem;
+      letter-spacing: 0.18em; text-transform: uppercase; color: var(--gold); margin-bottom: 0.75rem;
+    }
+    .work-block h3 { margin-bottom: 0.75rem; }
+    .work-block p  { font-size: 0.9rem; max-width: 440px; }
+
+    .block-canvas {
+      border-radius: var(--radius); overflow: hidden;
+      border: 1px solid var(--border); background: var(--surface); height: 140px;
+    }
+    .block-canvas canvas { width: 100%; height: 100%; display: block; }
+
+    .wi-baseline {
+      margin-top: 3rem; text-align: center; padding: 2rem;
+      border: 1px solid var(--border); border-radius: var(--radius-lg);
+    }
+    .wi-baseline p { font-family: 'JetBrains Mono', monospace; font-size: 0.75rem; letter-spacing: 0.1em; color: var(--gold); }
+
+    /* ============================================================
+       05 — WHO THIS IS FOR
+    ============================================================ */
+    #who { padding: 9rem 0; border-top: 1px solid var(--border); }
+
+    .who-header { max-width: 620px; margin-bottom: 3.5rem; }
+    .who-header p { margin-top: 1.2rem; }
+
+    .who-panels { display: grid; grid-template-columns: 1fr 1fr; gap: 1.5rem; margin-bottom: 3.5rem; }
+
+    .who-panel { padding: 2.2rem; border-radius: var(--radius-lg); border: 1px solid var(--border); background: var(--surface); }
+    .who-panel-hd { display: flex; align-items: center; gap: 0.7rem; padding-bottom: 1.2rem; margin-bottom: 1.5rem; border-bottom: 1px solid var(--border); }
+    .who-indicator { width: 7px; height: 7px; border-radius: 50%; }
+    .who-panel.built  .who-indicator { background: rgba(74,124,89,0.7); box-shadow: 0 0 8px rgba(74,124,89,0.28); }
+    .who-panel.notfor .who-indicator { background: rgba(168,101,63,0.6); }
+    .who-panel-lbl { font-family: 'JetBrains Mono', monospace; font-size: 0.6rem; letter-spacing: 0.16em; text-transform: uppercase; }
+    .who-panel.built  .who-panel-lbl { color: var(--retention); }
+    .who-panel.notfor .who-panel-lbl { color: var(--copper); }
+
+    .who-list { list-style: none; display: flex; flex-direction: column; }
+    .who-list li { display: flex; align-items: flex-start; gap: 0.8rem; padding: 0.7rem 0; border-bottom: 1px solid var(--border); font-size: 0.875rem; color: var(--muted); line-height: 1.5; }
+    .who-list li:last-child { border-bottom: none; }
+    .who-list li::before { content: ''; width: 14px; height: 1px; background: var(--muted-dark); flex-shrink: 0; margin-top: 0.7rem; }
+
+    .who-cta { text-align: center; }
+    .who-cta p { font-size: 1.1rem; font-weight: 500; color: var(--ivory); margin-bottom: 1.5rem; }
+
+    /* ============================================================
+       06 — PHILOSOPHY
+    ============================================================ */
+    #philosophy { padding: 9rem 0; border-top: 1px solid var(--border); }
+
+    .phil-layout { display: grid; grid-template-columns: 1fr 1fr; gap: 6rem; align-items: center; }
+    .phil-content p { margin-bottom: 1.1rem; font-size: 0.95rem; }
+    .phil-content h2 { margin-bottom: 2rem; }
+
+    .phil-statement {
+      margin: 2.2rem 0; padding: 2rem;
+      border: 1px solid var(--gold-border); border-radius: var(--radius);
+      background: rgba(223,167,95,0.03);
+    }
+    .phil-statement p { font-size: 1.05rem; font-weight: 500; color: var(--ivory); line-height: 1.65; margin: 0; }
+
+    .phil-canvas-wrap { border-radius: var(--radius-xl); overflow: hidden; border: 1px solid var(--border); height: 480px; }
+    #philosophy-canvas { width: 100%; height: 100%; display: block; }
+
+    /* ============================================================
+       07 — ENGAGEMENT FLOW
+    ============================================================ */
+    #engagement { padding: 9rem 0; border-top: 1px solid var(--border); }
+
+    .eng-header { max-width: 540px; margin-bottom: 5rem; }
+
+    .flow-wrap { display: grid; grid-template-columns: 580px 1fr; gap: 6rem; align-items: start; }
+
+    .flow-timeline { position: relative; }
+    .flow-line-wrap { position: absolute; left: 1.1rem; top: 0; bottom: 0; width: 1px; }
+    .flow-line-bg   { position: absolute; inset: 0; background: var(--border); }
+    .flow-line-fill {
+      position: absolute; top: 0; left: 0; right: 0; height: 0%;
+      background: linear-gradient(to bottom, var(--gold), transparent);
+      box-shadow: 0 0 6px rgba(223,167,95,0.22);
+    }
+
+    .flow-step { display: flex; gap: 1.5rem; align-items: flex-start; padding: 2.2rem 0; border-bottom: 1px solid var(--border); }
+    .flow-step:last-of-type { border-bottom: none; }
+
+    .flow-node { flex-shrink: 0; display: flex; flex-direction: column; align-items: center; gap: 0.45rem; }
+    .flow-dot {
+      width: 36px; height: 36px; border-radius: 50%;
+      border: 1px solid var(--border); background: var(--surface);
+      display: flex; align-items: center; justify-content: center;
+      font-family: 'JetBrains Mono', monospace; font-size: 0.58rem;
+      color: var(--muted-dark); transition: var(--trans); z-index: 1;
+    }
+    .flow-step.active .flow-dot { border-color: var(--gold); background: rgba(223,167,95,0.08); color: var(--gold); box-shadow: 0 0 12px rgba(223,167,95,0.15); }
+    .flow-node-lbl { font-family: 'JetBrains Mono', monospace; font-size: 0.5rem; letter-spacing: 0.12em; text-transform: uppercase; color: var(--muted-dark); text-align: center; transition: color 0.3s; }
+    .flow-step.active .flow-node-lbl { color: var(--gold); }
+
+    .flow-content { padding-top: 0.4rem; }
+    .flow-content h3 { font-size: 1rem; margin-bottom: 0.45rem; }
+    .flow-content p  { font-size: 0.85rem; }
+
+    .flow-repeat { margin-top: 1.5rem; padding-left: 1.6rem; }
+    .flow-repeat p { font-family: 'JetBrains Mono', monospace; font-size: 0.68rem; color: var(--muted-dark); letter-spacing: 0.06em; }
+
+    .flow-right { padding-top: 2rem; }
+    .flow-right-card { padding: 2rem; border: 1px solid var(--border); border-radius: var(--radius-lg); background: var(--surface); }
+    .flow-right-card p { font-size: 0.875rem; margin-bottom: 0.8rem; }
+    .flow-right-card p:last-of-type { margin-bottom: 0; }
+
+    /* ============================================================
+       08 — PROOF
+    ============================================================ */
+    #proof { padding: 9rem 0; border-top: 1px solid var(--border); }
+
+    .proof-header { max-width: 580px; margin-bottom: 4rem; }
+    .proof-header p { margin-bottom: 1rem; }
+    .proof-header p:last-child { margin-bottom: 0; }
+
+    .terminal { background: var(--surface); border: 1px solid var(--border); border-radius: var(--radius-lg); overflow: hidden; }
+    .term-bar { display: flex; align-items: center; gap: 0.45rem; padding: 0.8rem 1.25rem; border-bottom: 1px solid var(--border); background: rgba(255,255,255,0.02); }
+    .term-dot { width: 8px; height: 8px; border-radius: 50%; background: var(--muted-dark); opacity: 0.35; }
+    .term-title { font-family: 'JetBrains Mono', monospace; font-size: 0.6rem; color: var(--muted-dark); letter-spacing: 0.1em; margin-left: auto; }
+
+    .term-body { padding: 2rem; }
+    .term-row { display: grid; grid-template-columns: 220px 1fr; gap: 1.5rem; padding: 1rem 0; border-bottom: 1px solid var(--border); }
+    .term-row:last-child { border-bottom: none; }
+    .term-key { font-family: 'JetBrains Mono', monospace; font-size: 0.62rem; color: var(--muted-dark); letter-spacing: 0.08em; text-transform: uppercase; }
+    .term-val { font-family: 'JetBrains Mono', monospace; font-size: 0.72rem; color: var(--muted); letter-spacing: 0.04em; }
+    .term-val.active   { color: var(--scale);  }
+    .term-val.progress { color: var(--demand); }
+
+    /* ============================================================
+       09 — FAQ
+    ============================================================ */
+    #faq { padding: 9rem 0; border-top: 1px solid var(--border); }
+
+    .faq-layout { display: grid; grid-template-columns: 260px 1fr; gap: 6rem; align-items: start; }
+    .faq-sidebar h2 { font-size: 1.5rem; margin-bottom: 1rem; }
+    .faq-sidebar p  { font-size: 0.85rem; }
+
+    .faq-list { border: 1px solid var(--border); border-radius: var(--radius-lg); overflow: hidden; }
+    .faq-item { border-bottom: 1px solid var(--border); }
+    .faq-item:last-child { border-bottom: none; }
+
+    .faq-q { display: flex; align-items: center; gap: 1.25rem; padding: 1.2rem 1.5rem; cursor: pointer; transition: background 0.2s; user-select: none; }
+    .faq-q:hover { background: rgba(255,255,255,0.02); }
+    .faq-item.open .faq-q { border-bottom: 1px solid var(--border); }
+
+    .faq-num { font-family: 'JetBrains Mono', monospace; font-size: 0.6rem; color: var(--muted-dark); letter-spacing: 0.1em; flex-shrink: 0; min-width: 38px; transition: color 0.3s; }
+    .faq-item.open .faq-num,
+    .faq-q:hover   .faq-num { color: var(--gold); }
+    .faq-qtext { font-size: 0.875rem; font-weight: 500; color: var(--ivory); flex: 1; line-height: 1.5; }
+
+    .faq-icon { width: 16px; height: 16px; position: relative; flex-shrink: 0; }
+    .faq-icon::before, .faq-icon::after { content: ''; position: absolute; background: var(--muted-dark); transition: all 0.3s cubic-bezier(0.4,0,0.2,1); }
+    .faq-icon::before { width: 10px; height: 1px; top: 50%; left: 50%; transform: translate(-50%,-50%); }
+    .faq-icon::after  { width: 1px; height: 10px; top: 50%; left: 50%; transform: translate(-50%,-50%); }
+    .faq-item.open .faq-icon::after { opacity: 0; transform: translate(-50%,-50%) rotate(90deg); }
+
+    .faq-ans { max-height: 0; overflow: hidden; transition: max-height 0.4s cubic-bezier(0.4,0,0.2,1); }
+    .faq-item.open .faq-ans { max-height: 280px; }
+    .faq-ans-inner { padding: 1.2rem 1.5rem 1.2rem calc(1.5rem + 38px + 1.25rem); }
+    .faq-ans-inner p { font-size: 0.85rem; line-height: 1.75; }
+
+    /* ============================================================
+       10 — BOOKING
+    ============================================================ */
+    #book-a-call { padding: 9rem 0; border-top: 1px solid var(--border); }
+
+    .booking-header { text-align: center; max-width: 620px; margin: 0 auto 4rem; }
+    .booking-header h2 { margin-bottom: 1.2rem; }
+    .booking-header p  { font-size: 1rem; }
+
+    .booking-cta-pre {
+      display: block; text-align: center;
+      font-family: 'JetBrains Mono', monospace; font-size: 0.72rem;
+      color: var(--muted-dark); letter-spacing: 0.14em; margin-bottom: 1.5rem;
+    }
+
+    .booking-shell {
+      max-width: 920px; margin: 0 auto 2.5rem;
+      border: 1px solid var(--gold-border); border-radius: var(--radius-xl);
+      background: var(--surface); overflow: hidden;
+    }
+    .booking-top {
+      display: flex; justify-content: space-between; align-items: center;
+      padding: 1.2rem 1.75rem; border-bottom: 1px solid var(--border);
+      background: rgba(223,167,95,0.025);
+    }
+    .booking-top-title { font-family: 'JetBrains Mono', monospace; font-size: 0.62rem; letter-spacing: 0.18em; text-transform: uppercase; color: var(--gold); }
+    .booking-top-right { display: flex; align-items: center; gap: 0.6rem; font-family: 'JetBrains Mono', monospace; font-size: 0.6rem; color: var(--muted-dark); letter-spacing: 0.1em; }
+    .booking-top-right::before { content: ''; width: 6px; height: 6px; border-radius: 50%; background: var(--scale); }
+
+    .booking-embed { min-height: 560px; position: relative; }
+    .booking-embed iframe { display: block; width: 100%; min-height: 560px; border: none; }
+
+    .booking-placeholder {
+      position: absolute; inset: 0;
+      display: flex; flex-direction: column; align-items: center; justify-content: center;
+      gap: 1.25rem; text-align: center; padding: 3rem;
+    }
+    .bph-icon { width: 52px; height: 52px; border-radius: 50%; border: 1px solid var(--gold-border); display: flex; align-items: center; justify-content: center; }
+    .bph-icon svg { width: 22px; height: 22px; stroke: var(--gold); fill: none; stroke-width: 1.5; }
+    .booking-placeholder h3 { font-size: 1rem; }
+    .booking-placeholder p  { font-size: 0.82rem; max-width: 380px; }
+    .booking-placeholder code { font-family: 'JetBrains Mono', monospace; font-size: 0.68rem; color: var(--gold); background: rgba(223,167,95,0.08); padding: 0.2rem 0.45rem; border-radius: 4px; border: 1px solid rgba(223,167,95,0.15); }
+
+    .booking-micro { text-align: center; }
+    .booking-micro p { font-family: 'JetBrains Mono', monospace; font-size: 0.62rem; color: var(--muted-dark); letter-spacing: 0.14em; }
+
+    /* ============================================================
+       FOOTER
+    ============================================================ */
+    footer { border-top: 1px solid var(--border); padding: 2.5rem 0; position: relative; z-index: 1; }
+    .footer-inner { display: flex; align-items: center; justify-content: space-between; gap: 2rem; }
+    .footer-mark { font-family: 'JetBrains Mono', monospace; font-size: 0.62rem; color: var(--muted-dark); letter-spacing: 0.12em; }
+    .footer-tag  { font-family: 'JetBrains Mono', monospace; font-size: 0.58rem; color: var(--muted-dark); letter-spacing: 0.08em; opacity: 0.6; }
+
+    /* ============================================================
+       RESPONSIVE
+    ============================================================ */
+    @media (max-width: 1100px) {
+      #hero { grid-template-columns: 1fr; min-height: auto; padding: 5rem 0 4rem; }
+      .hero-left { padding-left: 2.5rem; padding-right: 2.5rem; }
+      .hero-right { display: none; }
+      .problem-headline { max-width: 100%; }
+      .problem-cols { grid-template-columns: 1fr; gap: 3rem; }
+      .os-grid { grid-template-columns: 1fr 1fr; }
+      .work-block { grid-template-columns: 5.5rem 1fr; }
+      .block-canvas { display: none; }
+      .phil-layout { grid-template-columns: 1fr; gap: 4rem; }
+      .phil-canvas-wrap { height: 320px; }
+      .flow-wrap { grid-template-columns: 1fr; gap: 4rem; }
+      .flow-right { display: none; }
+      .faq-layout { grid-template-columns: 1fr; gap: 3rem; }
+      .fw-header { flex-direction: column; }
+      .fw-header-right { text-align: left; max-width: 100%; }
+    }
+
+    @media (max-width: 768px) {
+      .container { padding: 0 1.5rem; }
+      h1 { font-size: 2.6rem; }
+      h2 { font-size: 2rem; }
+      #problem, #framework, #what-i-do, #who,
+      #philosophy, #engagement, #proof, #faq, #book-a-call { padding: 5rem 0; }
+      .os-grid { grid-template-columns: 1fr; }
+      .diag-strip { grid-template-columns: 1fr 1fr; }
+      .work-block { grid-template-columns: 1fr; }
+      .block-num { display: none; }
+      .sys-line { display: none; }
+      .who-panels { grid-template-columns: 1fr; }
+      .footer-inner { flex-direction: column; gap: 0.75rem; text-align: center; }
+    }
+
+    /* ============================================================
+       BOOKING FORM — multi-step
+    ============================================================ */
+    .form-progress {
+      display: grid; grid-template-columns: repeat(3,1fr);
+      gap: 6px; padding: 1.2rem 1.75rem;
+      border-bottom: 1px solid var(--border);
+    }
+    .form-prog-seg {
+      height: 2px; border-radius: 2px;
+      background: var(--border); overflow: hidden; position: relative;
+    }
+    .form-prog-fill {
+      position: absolute; top:0; left:0; bottom:0;
+      background: var(--gold); width: 0%;
+      transition: width 0.5s cubic-bezier(0.4,0,0.2,1);
+    }
+    .form-prog-seg.done .form-prog-fill { width: 100%; }
+
+    .form-area { padding: 2.5rem 2rem; min-height: 420px; position: relative; }
+
+    .form-step { display: none; }
+    .form-step.active {
+      display: block;
+      animation: stepIn 0.4s cubic-bezier(0.4,0,0.2,1) both;
+    }
+    @keyframes stepIn {
+      from { opacity:0; transform: translateX(20px); }
+      to   { opacity:1; transform: translateX(0); }
+    }
+
+    .form-step-label {
+      font-family: 'JetBrains Mono', monospace;
+      font-size: 0.58rem; letter-spacing: 0.18em; text-transform: uppercase;
+      color: var(--muted-dark); margin-bottom: 0.6rem;
+    }
+    .form-step h3 { font-size: 1.2rem; margin-bottom: 0.4rem; }
+    .form-step > p { font-size: 0.82rem; margin-bottom: 2rem; }
+
+    .form-fields { display: flex; flex-direction: column; gap: 1.25rem; }
+
+    .field-group { display: flex; flex-direction: column; gap: 0.45rem; }
+    .field-group label {
+      font-family: 'JetBrains Mono', monospace;
+      font-size: 0.6rem; letter-spacing: 0.14em; text-transform: uppercase;
+      color: var(--muted-dark);
+    }
+
+    .form-input, .form-select, .form-textarea {
+      width: 100%; padding: 0.85rem 1rem;
+      background: rgba(255,255,255,0.03);
+      border: 1px solid var(--border); border-radius: var(--radius);
+      color: var(--ivory); font-family: 'Inter', sans-serif; font-size: 0.875rem;
+      outline: none; transition: var(--trans);
+      -webkit-appearance: none;
+    }
+    .form-input::placeholder, .form-textarea::placeholder { color: var(--muted-dark); }
+    .form-input:focus, .form-select:focus, .form-textarea:focus {
+      border-color: rgba(223,167,95,0.4);
+      background: rgba(223,167,95,0.03);
+      box-shadow: 0 0 0 3px rgba(223,167,95,0.07);
+    }
+    .form-select { cursor: pointer; color: var(--muted); }
+    .form-select option { background: var(--surface); color: var(--ivory); }
+    .form-select.filled { color: var(--ivory); }
+    .form-textarea { resize: vertical; min-height: 100px; line-height: 1.7; }
+
+    .form-row { display: grid; grid-template-columns: 1fr 1fr; gap: 1rem; }
+
+    .channel-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 0.5rem; }
+    .channel-chip {
+      display: flex; align-items: center; gap: 0.6rem;
+      padding: 0.65rem 0.9rem;
+      border: 1px solid var(--border); border-radius: var(--radius);
+      cursor: pointer; transition: var(--trans);
+      background: rgba(255,255,255,0.02); user-select: none;
+    }
+    .channel-chip:hover { border-color: var(--border-hi); background: rgba(255,255,255,0.04); }
+    .channel-chip.selected { border-color: rgba(223,167,95,0.35); background: rgba(223,167,95,0.06); }
+    .channel-chip input { display: none; }
+    .channel-dot {
+      width: 12px; height: 12px; border-radius: 3px;
+      border: 1px solid var(--border); flex-shrink: 0; transition: var(--trans);
+    }
+    .channel-chip.selected .channel-dot { background: var(--gold); border-color: var(--gold); }
+    .channel-chip span { font-size: 0.8rem; color: var(--muted); }
+    .channel-chip.selected span { color: var(--ivory); }
+
+    .form-nav {
+      display: flex; justify-content: space-between; align-items: center;
+      padding: 1.5rem 2rem; border-top: 1px solid var(--border);
+    }
+    .form-nav-left { display: flex; align-items: center; gap: 0.75rem; }
+    .form-step-counter { font-family: 'JetBrains Mono', monospace; font-size: 0.6rem; color: var(--muted-dark); letter-spacing: 0.1em; }
+    .form-error {
+      font-family: 'JetBrains Mono', monospace; font-size: 0.6rem;
+      color: var(--copper); letter-spacing: 0.08em; opacity: 0; transition: opacity 0.3s;
+    }
+    .form-error.visible { opacity: 1; }
+
+    .form-success {
+      display: none; flex-direction: column; align-items: center;
+      justify-content: center; text-align: center;
+      padding: 3.5rem 2rem; gap: 1.5rem; min-height: 420px;
+    }
+    .form-success.active { display: flex; animation: stepIn 0.5s ease both; }
+    .success-ring {
+      width: 64px; height: 64px; border-radius: 50%;
+      border: 1px solid var(--gold-border);
+      display: flex; align-items: center; justify-content: center;
+    }
+    .success-ring svg { width: 26px; height: 26px; stroke: var(--gold); fill:none; stroke-width:1.8; }
+    .form-success h3 { font-size: 1.3rem; }
+    .form-success p  { font-size: 0.875rem; max-width: 400px; }
+    .success-detail {
+      display: flex; flex-direction: column; gap: 0.5rem;
+      padding: 1.25rem 1.5rem; border: 1px solid var(--border);
+      border-radius: var(--radius); background: var(--surface-hi);
+      width: 100%; max-width: 440px; text-align: left;
+    }
+    .success-row { display: flex; justify-content: space-between; gap: 1rem; }
+    .success-row span:first-child { font-family: 'JetBrains Mono', monospace; font-size: 0.6rem; color: var(--muted-dark); letter-spacing: 0.1em; text-transform: uppercase; flex-shrink: 0; }
+    .success-row span:last-child  { font-size: 0.8rem; color: var(--muted); text-align: right; }
+
+    @media (max-width: 640px) {
+      .form-row { grid-template-columns: 1fr; }
+      .channel-grid { grid-template-columns: 1fr; }
+      .form-area { padding: 2rem 1.25rem; }
+      .form-nav  { padding: 1.25rem 1.25rem; }
+      .form-progress { padding: 1rem 1.25rem; }
+    }
+  </style>
+</head>
+<body>
+
+<!-- ======================================================
+     01 — HERO
+====================================================== -->
+<section id="hero">
+  <div class="hero-left">
+    <div class="status-badge">
+      <div class="status-dot"></div>
+      ACCEPTING SELECT GROWTH BUILDS
+    </div>
+
+    <div class="eyebrow">THE SELF-FUNDED GROWTH OS</div>
+
+    <h1 class="hero-h1">
+      BUILD THE<br />
+      GROWTH MACHINE.<br />
+      <span class="gold">THEN FEED IT<br />CAPITAL.</span>
+    </h1>
+
+    <p class="hero-body">
+      I build capital-efficient growth systems for founder-led ecommerce brands
+      that already have demand—but know there is money leaking somewhere between
+      acquisition, conversion, retention and scale.
+    </p>
+
+    <div class="hero-ctas">
+      <a href="#book-a-call" class="btn-primary" id="hero-cta-primary">Book a Growth Systems Diagnostic</a>
+      <a href="#framework"   class="btn-ghost"   id="hero-cta-secondary">See how the system works ↓</a>
+    </div>
+
+    <p class="hero-micro">30 minutes &nbsp;·&nbsp; For established ecommerce brands &nbsp;·&nbsp; No obligation</p>
+
+    <div class="hero-profile-row">
+      <div class="hero-portrait">
+        <!--
+          Place your profile photo at:  assets/profile.jpg
+          (same folder as this index.html)
+          The img tag below will load it automatically.
+        -->
+        <img src="assets/profile.jpg" alt="Founder portrait"
+             onerror="this.parentNode.innerHTML='<div style=\'display:flex;align-items:center;justify-content:center;height:100%;font-family:JetBrains Mono,monospace;font-size:0.7rem;color:var(--gold);\'>F</div>';" />
+      </div>
+      <div class="hero-quote">
+        <p>Capital isn't the enemy. Using capital to compensate for a broken growth system is.</p>
+      </div>
+    </div>
+  </div>
+
+  <div class="hero-right">
+    <canvas id="hero-canvas"></canvas>
+    <div class="hero-fade"></div>
+    <div class="hero-labels">
+      <div class="hml-row" style="margin-bottom:5rem;">
+        <span class="hml-tag demand">DEMAND</span>
+        <span class="hml-tag conversion">CONVERSION</span>
+      </div>
+      <div class="hml-row" style="margin-top:5rem;">
+        <span class="hml-tag retention">RETENTION</span>
+        <span class="hml-tag scale">SCALE</span>
+      </div>
+    </div>
+  </div>
+</section>
+
+
+<!-- ======================================================
+     02 — THE PROBLEM
+====================================================== -->
+<section id="problem">
+  <div class="container">
+    <div style="margin-bottom:2.5rem;"><span class="sys-label">SYSTEM DIAGNOSTIC / 01</span></div>
+
+    <h2 class="problem-headline">
+      You probably don't need more marketing.<br />
+      You need to know where growth is breaking.
+    </h2>
+
+    <div class="problem-cols">
+      <div class="problem-text">
+        <p>Most brands don't have one marketing problem.</p>
+        <p>They have a system problem.</p>
+        <p>Paid acquisition is blamed when conversion is weak. Conversion is blamed when the offer is weak.
+           More customers are acquired while retention quietly destroys the economics.</p>
+        <p>Then more budget gets added to a machine that was already leaking.</p>
+        <p><strong>More activity doesn't solve that. A better system does.</strong></p>
+      </div>
+      <div class="prob-canvas-wrap">
+        <canvas id="problem-canvas"></canvas>
+        <span class="prob-canvas-label">CONSTRAINT</span>
+      </div>
+    </div>
+
+    <div class="diag-strip">
+      <div class="diag-item"><span>ATTENTION</span><span class="arrow">→</span></div>
+      <div class="diag-item btl">
+        <span>REVENUE</span>
+        <span class="btl-note">BOTTLENECK</span>
+        <span class="arrow">→</span>
+      </div>
+      <div class="diag-item"><span>LTV</span><span class="arrow">→</span></div>
+      <div class="diag-item"><span>CAPITAL</span></div>
+    </div>
+
+    <div class="diag-lines" style="margin-top:1.5rem;">
+      <div class="diag-line"><p>Traffic without conversion is expensive attention.</p></div>
+      <div class="diag-line"><p>Conversion without retention is temporary revenue.</p></div>
+      <div class="diag-line"><p>Retention without demand eventually stalls.</p></div>
+      <div class="diag-line"><p>Scale without healthy economics magnifies the problem.</p></div>
+    </div>
+  </div>
+</section>
+
+
+<!-- ======================================================
+     03 — THE FRAMEWORK
+====================================================== -->
+<section id="framework">
+  <div class="container">
+    <div class="fw-header">
+      <div>
+        <div class="eyebrow">THE OPERATING SYSTEM</div>
+        <h2>Four systems.<br />One growth machine.</h2>
+      </div>
+      <div class="fw-header-right">
+        <p>Every engagement starts by finding which part of the machine is limiting the company.
+           Then we fix that before blindly adding more traffic, tools or headcount.</p>
+      </div>
+    </div>
+
+    <div class="os-grid">
+      <div class="os-module" data-m="demand">
+        <div class="mod-num">01 / DEMAND</div>
+        <div class="mod-chip">DMD</div>
+        <div class="mod-name">Demand</div>
+        <div class="mod-outcome">Create qualified attention</div>
+        <div class="mod-desc">Acquisition · Creative · Offers · Distribution</div>
+        <div class="mod-metrics">
+          <div class="mod-metric"><span>CAC TREND</span><span>→ TRACKED</span></div>
+          <div class="mod-metric"><span>CHANNEL MIX</span><span>→ AUDITED</span></div>
+          <div class="mod-metric"><span>OFFER FIT</span><span>→ DIAGNOSED</span></div>
+        </div>
+      </div>
+      <div class="os-module" data-m="conversion">
+        <div class="mod-num">02 / CONVERSION</div>
+        <div class="mod-chip">CVR</div>
+        <div class="mod-name">Conversion</div>
+        <div class="mod-outcome">Turn attention into revenue</div>
+        <div class="mod-desc">Landing pages · CRO · Offers · Funnels</div>
+        <div class="mod-metrics">
+          <div class="mod-metric"><span>CVR BASELINE</span><span>→ MEASURED</span></div>
+          <div class="mod-metric"><span>FUNNEL LEAKS</span><span>→ MAPPED</span></div>
+          <div class="mod-metric"><span>OFFER CLARITY</span><span>→ TESTED</span></div>
+        </div>
+      </div>
+      <div class="os-module" data-m="retention">
+        <div class="mod-num">03 / RETENTION</div>
+        <div class="mod-chip">RET</div>
+        <div class="mod-name">Retention</div>
+        <div class="mod-outcome">Increase the value of every customer</div>
+        <div class="mod-desc">Email · Lifecycle · Repeat purchase · LTV</div>
+        <div class="mod-metrics">
+          <div class="mod-metric"><span>REPEAT RATE</span><span>→ TRACKED</span></div>
+          <div class="mod-metric"><span>LTV BASELINE</span><span>→ SET</span></div>
+          <div class="mod-metric"><span>LIFECYCLE GAP</span><span>→ FOUND</span></div>
+        </div>
+      </div>
+      <div class="os-module" data-m="scale">
+        <div class="mod-num">04 / SCALE</div>
+        <div class="mod-chip">SCL</div>
+        <div class="mod-name">Scale</div>
+        <div class="mod-outcome">Put capital behind what has earned it</div>
+        <div class="mod-desc">Paid acquisition · Economics · Testing · Scaling</div>
+        <div class="mod-metrics">
+          <div class="mod-metric"><span>LTV:CAC</span><span>→ VERIFIED</span></div>
+          <div class="mod-metric"><span>PAYBACK PERIOD</span><span>→ KNOWN</span></div>
+          <div class="mod-metric"><span>SCALE CEILING</span><span>→ DEFINED</span></div>
+        </div>
+      </div>
+    </div>
+
+    <div class="fw-closing">
+      <p style="color:var(--ivory);font-weight:500;">The objective isn't to avoid capital.</p>
+      <p>It's to become the kind of company capital can accelerate.</p>
+    </div>
+  </div>
+</section>
+
+
+<!-- ======================================================
+     04 — WHAT I ACTUALLY DO
+====================================================== -->
+<section id="what-i-do">
+  <div class="container">
+    <div class="wi-header">
+      <div class="eyebrow">FROM STRATEGY TO SYSTEM</div>
+      <h2>I don't hand you a deck and disappear.</h2>
+      <p>The objective is not another collection of recommendations for your team to figure out later.
+         We identify the constraint, design the system around it and build the infrastructure required
+         to move the number that matters.</p>
+    </div>
+
+    <div class="work-blocks">
+      <div class="sys-line">
+        <div class="sys-line-bg"></div>
+        <div class="sys-line-fill" id="sys-line-fill"></div>
+      </div>
+
+      <div class="work-block">
+        <div class="block-num">01</div>
+        <div class="block-content">
+          <div class="block-lbl">DIAGNOSE</div>
+          <h3>Find the constraint.</h3>
+          <p>We map the journey from demand to repeat revenue and identify where growth is actually being lost.</p>
+        </div>
+        <div class="block-canvas"><canvas id="diagnose-canvas"></canvas></div>
+      </div>
+
+      <div class="work-block">
+        <div class="block-num">02</div>
+        <div class="block-content">
+          <div class="block-lbl">BUILD</div>
+          <h3>Fix the system.</h3>
+          <p>We redesign the highest-leverage part of the machine—whether that means acquisition architecture,
+             conversion infrastructure, retention or the connection between them.</p>
+        </div>
+        <div class="block-canvas"><canvas id="build-canvas"></canvas></div>
+      </div>
+
+      <div class="work-block">
+        <div class="block-num">03</div>
+        <div class="block-content">
+          <div class="block-lbl">PROVE</div>
+          <h3>Measure what changed.</h3>
+          <p>We establish a baseline before the work begins and judge the intervention against business
+             outcomes rather than vanity metrics.</p>
+        </div>
+        <div class="block-canvas"><canvas id="prove-canvas"></canvas></div>
+      </div>
+    </div>
+
+    <div class="wi-baseline">
+      <p>BASELINE &nbsp;→&nbsp; INTERVENTION &nbsp;→&nbsp; MEASURABLE RESULT</p>
+    </div>
+  </div>
+</section>
+
+
+<!-- ======================================================
+     05 — WHO THIS IS FOR
+====================================================== -->
+<section id="who">
+  <div class="container">
+    <div class="who-header">
+      <h2>This works best when there is already something worth fixing.</h2>
+      <p>I am not trying to manufacture product-market fit for a brand nobody wants. The best engagements
+         begin when the business already has customers, traffic and enough evidence that the market wants
+         the product—but growth has become inefficient, inconsistent or overly dependent on one channel.</p>
+    </div>
+
+    <div class="who-panels">
+      <div class="who-panel built">
+        <div class="who-panel-hd">
+          <div class="who-indicator"></div>
+          <span class="who-panel-lbl">BUILT FOR</span>
+        </div>
+        <ul class="who-list">
+          <li>Founder-led ecommerce brand</li>
+          <li>Existing product-market fit</li>
+          <li>Meaningful monthly revenue</li>
+          <li>Already investing in acquisition</li>
+          <li>Retention or conversion still has obvious upside</li>
+          <li>Founder wants profitable growth, not vanity growth</li>
+        </ul>
+      </div>
+      <div class="who-panel notfor">
+        <div class="who-panel-hd">
+          <div class="who-indicator"></div>
+          <span class="who-panel-lbl">NOT BUILT FOR</span>
+        </div>
+        <ul class="who-list">
+          <li>Pre-revenue idea</li>
+          <li>No meaningful customer demand yet</li>
+          <li>Looking for a few random marketing hacks</li>
+          <li>Want someone to run ads without touching the underlying economics</li>
+          <li>Need guaranteed overnight results</li>
+        </ul>
+      </div>
+    </div>
+
+    <div class="who-cta">
+      <p>Think there's a bottleneck? Let's find it.</p>
+      <a href="#book-a-call" class="btn-primary" id="who-cta">Book a Growth Systems Diagnostic</a>
+    </div>
+  </div>
+</section>
+
+
+<!-- ======================================================
+     06 — THE PHILOSOPHY
+====================================================== -->
+<section id="philosophy">
+  <div class="container">
+    <div class="phil-layout">
+      <div class="phil-content">
+        <div class="eyebrow">CAPITAL-EFFICIENT GROWTH</div>
+        <h2>I'm not anti-VC.<br />I'm anti-funding<br />broken economics.</h2>
+        <p>Capital is leverage.</p>
+        <p>And leverage is powerful when it is applied to something that already works.</p>
+        <p>But when acquisition is inefficient, conversion is leaking and customers don't stay long enough—raising
+           more money can simply allow the company to make the same mistakes faster.</p>
+        <p>The order matters.</p>
+        <div class="phil-statement">
+          <p>Build the machine.<br />Prove the machine.<br />Then accelerate the machine.</p>
+        </div>
+        <p>That might mean bootstrapping. It might mean reinvesting profits. It might eventually mean raising capital.</p>
+        <p>The financing strategy changes. The underlying principle doesn't.</p>
+      </div>
+      <div class="phil-canvas-wrap">
+        <canvas id="philosophy-canvas"></canvas>
+      </div>
+    </div>
+  </div>
+</section>
+
+
+<!-- ======================================================
+     07 — HOW WE'D WORK TOGETHER
+====================================================== -->
+<section id="engagement">
+  <div class="container">
+    <div class="eng-header">
+      <div class="eyebrow">ENGAGEMENT FLOW</div>
+      <h2>First we find the problem worth solving.</h2>
+    </div>
+
+    <div class="flow-wrap">
+      <div class="flow-timeline">
+        <div class="flow-line-wrap">
+          <div class="flow-line-bg"></div>
+          <div class="flow-line-fill" id="flow-line-fill"></div>
+        </div>
+
+        <div class="flow-step" data-step="1">
+          <div class="flow-node">
+            <div class="flow-dot">01</div>
+            <span class="flow-node-lbl">DIAGNOSE</span>
+          </div>
+          <div class="flow-content">
+            <h3>Growth Systems Diagnostic</h3>
+            <p>A focused conversation about the business, the numbers and where you believe growth is
+               currently constrained. No generic sales presentation.</p>
+          </div>
+        </div>
+
+        <div class="flow-step" data-step="2">
+          <div class="flow-node">
+            <div class="flow-dot">02</div>
+            <span class="flow-node-lbl">MAP</span>
+          </div>
+          <div class="flow-content">
+            <h3>System Analysis</h3>
+            <p>If there is a fit, we establish the baseline, map the growth system and identify the
+               highest-leverage intervention.</p>
+          </div>
+        </div>
+
+        <div class="flow-step" data-step="3">
+          <div class="flow-node">
+            <div class="flow-dot">03</div>
+            <span class="flow-node-lbl">BUILD</span>
+          </div>
+          <div class="flow-content">
+            <h3>Build</h3>
+            <p>We design and implement the system around that constraint.</p>
+          </div>
+        </div>
+
+        <div class="flow-step" data-step="4">
+          <div class="flow-node">
+            <div class="flow-dot">04</div>
+            <span class="flow-node-lbl">MEASURE</span>
+          </div>
+          <div class="flow-content">
+            <h3>Measure</h3>
+            <p>We compare the result against the baseline, learn what changed and determine the next constraint.</p>
+          </div>
+        </div>
+
+        <div class="flow-repeat"><p>// Then the cycle repeats.</p></div>
+      </div>
+
+      <div class="flow-right">
+        <div class="flow-right-card">
+          <div class="eyebrow" style="margin-bottom:1.2rem;">WHAT TO EXPECT</div>
+          <p>The first call is diagnostic, not a pitch. Come prepared with your current numbers: monthly
+             revenue, acquisition spend, conversion rate, and your best guess at where the machine is leaking.</p>
+          <p>If I don't believe I can help, I'll tell you that on the call. If there's a fit, I'll explain
+             exactly what I'd investigate next and what the engagement would look like.</p>
+          <p>Every engagement begins with a measurable baseline before any work starts.</p>
+          <a href="#book-a-call" class="btn-primary" id="eng-cta" style="margin-top:1.5rem;display:inline-flex;">Book a Diagnostic</a>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+
+<!-- ======================================================
+     08 — PROOF
+====================================================== -->
+<section id="proof">
+  <div class="container">
+    <div class="proof-header">
+      <div class="eyebrow">EVIDENCE &gt; CLAIMS</div>
+      <h2>The numbers come before the case study.</h2>
+      <p>I believe growth work should be documented against a baseline. So every case study published here
+         will show the same four things: where the company started, what we changed, how long it took,
+         and what changed economically.</p>
+      <p>No cropped screenshots without context. No vanity metrics presented as revenue.
+         No pretending correlation is causation.</p>
+    </div>
+
+    <div class="terminal">
+      <div class="term-bar">
+        <div class="term-dot"></div>
+        <div class="term-dot"></div>
+        <div class="term-dot"></div>
+        <span class="term-title">GROWTH OS / CASE STUDIES</span>
+      </div>
+      <div class="term-body">
+        <div class="term-row"><span class="term-key">CASE STUDY</span><span class="term-val">001</span></div>
+        <div class="term-row"><span class="term-key">STATUS</span><span class="term-val active">BUILD IN PROGRESS</span></div>
+        <div class="term-row"><span class="term-key">FORMAT</span><span class="term-val">BASELINE → INTERVENTION → RESULT</span></div>
+        <div class="term-row"><span class="term-key">BASELINE SET</span><span class="term-val progress">CONFIRMED</span></div>
+        <div class="term-row"><span class="term-key">PUBLISH DATE</span><span class="term-val">ON COMPLETION</span></div>
+      </div>
+    </div>
+  </div>
+</section>
+
+
+<!-- ======================================================
+     09 — FAQ
+====================================================== -->
+<section id="faq">
+  <div class="container">
+    <div class="faq-layout">
+      <div class="faq-sidebar">
+        <div class="eyebrow">COMMON QUESTIONS</div>
+        <h2>Clear answers.</h2>
+        <p>If none of these address your question, ask it on the diagnostic call.</p>
+      </div>
+
+      <div class="faq-list">
+        <div class="faq-item">
+          <div class="faq-q" onclick="toggleFaq(this)">
+            <span class="faq-num">Q/01</span>
+            <span class="faq-qtext">So are you against raising money?</span>
+            <div class="faq-icon"></div>
+          </div>
+          <div class="faq-ans"><div class="faq-ans-inner">
+            <p>No. I'm against using funding as a substitute for solving fundamental growth problems.
+               Capital can be an extraordinary accelerator once the underlying economics make sense.</p>
+          </div></div>
+        </div>
+
+        <div class="faq-item">
+          <div class="faq-q" onclick="toggleFaq(this)">
+            <span class="faq-num">Q/02</span>
+            <span class="faq-qtext">What kind of businesses do you work with?</span>
+            <div class="faq-icon"></div>
+          </div>
+          <div class="faq-ans"><div class="faq-ans-inner">
+            <p>My focus is founder-led ecommerce businesses with proven demand and enough existing activity
+               to diagnose meaningful problems across acquisition, conversion and retention.</p>
+          </div></div>
+        </div>
+
+        <div class="faq-item">
+          <div class="faq-q" onclick="toggleFaq(this)">
+            <span class="faq-num">Q/03</span>
+            <span class="faq-qtext">Do you only work on one channel?</span>
+            <div class="faq-icon"></div>
+          </div>
+          <div class="faq-ans"><div class="faq-ans-inner">
+            <p>No. The Growth OS is built around business constraints rather than marketing channels.
+               If retention is the bottleneck, buying more traffic isn't the answer. If conversion is already
+               strong but qualified demand is weak, rebuilding email flows isn't the answer either.
+               We work on the constraint.</p>
+          </div></div>
+        </div>
+
+        <div class="faq-item">
+          <div class="faq-q" onclick="toggleFaq(this)">
+            <span class="faq-num">Q/04</span>
+            <span class="faq-qtext">What happens on the first call?</span>
+            <div class="faq-icon"></div>
+          </div>
+          <div class="faq-ans"><div class="faq-ans-inner">
+            <p>We spend approximately 30 minutes understanding the business and determining where the most
+               likely constraint sits. If I believe I can help, I'll explain what I would investigate next.
+               If I don't, I'll tell you.</p>
+          </div></div>
+        </div>
+
+        <div class="faq-item">
+          <div class="faq-q" onclick="toggleFaq(this)">
+            <span class="faq-num">Q/05</span>
+            <span class="faq-qtext">Will you guarantee results?</span>
+            <div class="faq-icon"></div>
+          </div>
+          <div class="faq-ans"><div class="faq-ans-inner">
+            <p>No serious operator can guarantee a specific growth outcome before understanding the business.
+               What I can guarantee is that the work begins with a baseline, a clear hypothesis and
+               measurable criteria for determining whether the intervention worked.</p>
+          </div></div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+
+<!-- ======================================================
+     10 — BOOKING
+====================================================== -->
+<section id="book-a-call">
+  <div class="container">
+    <div class="booking-header">
+      <div class="eyebrow">START HERE</div>
+      <h2>Find the constraint before you spend more money feeding it.</h2>
+      <p>Book a 30-minute Growth Systems Diagnostic. We'll look at where the business is today, what is
+         currently limiting growth and whether there is a meaningful problem I can help you solve.
+         If there isn't, I'll tell you.</p>
+    </div>
+
+    <span class="booking-cta-pre">CHOOSE A TIME BELOW</span>
+
+    <div class="booking-shell">
+      <div class="booking-top">
+        <span class="booking-top-title">GROWTH SYSTEMS DIAGNOSTIC</span>
+        <span class="booking-top-right">30 MIN &nbsp;·&nbsp; GOOGLE MEET</span>
+      </div>
+
+      <!-- Progress bar -->
+      <div class="form-progress" id="form-progress">
+        <div class="form-prog-seg done" id="prog-1"><div class="form-prog-fill"></div></div>
+        <div class="form-prog-seg"      id="prog-2"><div class="form-prog-fill"></div></div>
+        <div class="form-prog-seg"      id="prog-3"><div class="form-prog-fill"></div></div>
+      </div>
+
+      <!-- Form steps -->
+      <div class="form-area" id="form-area">
+
+        <!-- STEP 1 — Business basics -->
+        <div class="form-step active" id="step-1">
+          <div class="form-step-label">STEP 01 OF 03 &nbsp;/&nbsp; BUSINESS</div>
+          <h3>Tell me about the business.</h3>
+          <p>Keep it brief. The numbers matter more than the pitch.</p>
+          <div class="form-fields">
+            <div class="field-group">
+              <label for="f-website">Company website</label>
+              <input id="f-website" class="form-input" type="url" placeholder="https://yourstore.com" autocomplete="url" />
+            </div>
+            <div class="field-group">
+              <label for="f-revenue">Approximate monthly revenue</label>
+              <select id="f-revenue" class="form-select" onchange="this.classList.add('filled')">
+                <option value="" disabled selected>Select a range</option>
+                <option>Under £10k / month</option>
+                <option>£10k – £50k / month</option>
+                <option>£50k – £250k / month</option>
+                <option>£250k – £1M / month</option>
+                <option>£1M+ / month</option>
+              </select>
+            </div>
+          </div>
+        </div>
+
+        <!-- STEP 2 — Growth context -->
+        <div class="form-step" id="step-2">
+          <div class="form-step-label">STEP 02 OF 03 &nbsp;/&nbsp; GROWTH</div>
+          <h3>Tell me about the growth system.</h3>
+          <p>I'm looking for the honest picture, not the optimistic one.</p>
+          <div class="form-fields">
+            <div class="field-group">
+              <label>Primary acquisition channels</label>
+              <div class="channel-grid" id="channels">
+                <label class="channel-chip" onclick="toggleChip(this)"><div class="channel-dot"></div><span>Paid Social</span></label>
+                <label class="channel-chip" onclick="toggleChip(this)"><div class="channel-dot"></div><span>Paid Search</span></label>
+                <label class="channel-chip" onclick="toggleChip(this)"><div class="channel-dot"></div><span>Email / SMS</span></label>
+                <label class="channel-chip" onclick="toggleChip(this)"><div class="channel-dot"></div><span>Organic / SEO</span></label>
+                <label class="channel-chip" onclick="toggleChip(this)"><div class="channel-dot"></div><span>Influencer</span></label>
+                <label class="channel-chip" onclick="toggleChip(this)"><div class="channel-dot"></div><span>Other</span></label>
+              </div>
+            </div>
+            <div class="field-group">
+              <label for="f-constraint">What is currently limiting growth?</label>
+              <textarea id="f-constraint" class="form-textarea" placeholder="e.g. Paid CAC keeps rising, email list isn't converting, repeat purchase rate is flat…"></textarea>
+            </div>
+          </div>
+        </div>
+
+        <!-- STEP 3 — Contact + qualifier -->
+        <div class="form-step" id="step-3">
+          <div class="form-step-label">STEP 03 OF 03 &nbsp;/&nbsp; CONTACT</div>
+          <h3>Almost there.</h3>
+          <p>One last question, then we confirm your time.</p>
+          <div class="form-fields">
+            <div class="form-row">
+              <div class="field-group">
+                <label for="f-first">First name</label>
+                <input id="f-first" class="form-input" type="text" placeholder="First" autocomplete="given-name" />
+              </div>
+              <div class="field-group">
+                <label for="f-last">Last name</label>
+                <input id="f-last" class="form-input" type="text" placeholder="Last" autocomplete="family-name" />
+              </div>
+            </div>
+            <div class="field-group">
+              <label for="f-email">Email address</label>
+              <input id="f-email" class="form-input" type="email" placeholder="you@yourstore.com" autocomplete="email" />
+            </div>
+            <div class="field-group">
+              <label for="f-value">What would make this conversation valuable to you?</label>
+              <textarea id="f-value" class="form-textarea" placeholder="e.g. A clear read on whether my retention economics are salvageable before I scale paid…"></textarea>
+            </div>
+          </div>
+        </div>
+
+        <!-- SUCCESS STATE -->
+        <div class="form-success" id="form-success">
+          <div class="success-ring">
+            <svg viewBox="0 0 24 24"><polyline points="20 6 9 17 4 12"/></svg>
+          </div>
+          <h3>Request received.</h3>
+          <p>Your answers have been sent. You'll receive a reply within one business day to confirm your time.</p>
+          <div class="success-detail" id="success-detail"></div>
+          <p style="margin-top:0.5rem; font-size:0.78rem; opacity:0.55;">Your email client should have opened with the submission pre-filled.</p>
+        </div>
+
+      </div><!-- /form-area -->
+
+      <!-- Nav -->
+      <div class="form-nav" id="form-nav">
+        <div class="form-nav-left">
+          <button class="btn-ghost" id="btn-back" onclick="formBack()" style="display:none;">← Back</button>
+          <span class="form-step-counter" id="step-counter">STEP 1 / 3</span>
+          <span class="form-error" id="form-error">Please complete the required fields.</span>
+        </div>
+        <button class="btn-primary" id="btn-next" onclick="formNext()">Continue →</button>
+      </div>
+
+    </div>
+
+    <div class="booking-micro">
+      <p>NO PITCH DECK. &nbsp;NO PRESSURE. &nbsp;COME WITH NUMBERS.</p>
+    </div>
+  </div>
+</section>
+
+
+
+<!-- ======================================================
+     FOOTER
+====================================================== -->
+<footer>
+  <div class="container">
+    <div class="footer-inner">
+      <span class="footer-mark">SELF-FUNDED GROWTH OS</span>
+      <span class="footer-tag">BUILD THE MACHINE BEFORE YOU RAISE THE MONEY.</span>
+    </div>
+  </div>
+</footer>
+
+
+<!-- ======================================================
+     SCRIPTS
+====================================================== -->
+<script src="https://cdn.jsdelivr.net/npm/three@0.157.0/build/three.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/gsap@3.12.2/dist/gsap.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/gsap@3.12.2/dist/ScrollTrigger.min.js"></script>
+<script>
+'use strict';
+
+/* ============================================================
+   BOOKING FORM
+   ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+   ⚠  CHANGE THIS to your real email address before going live
+============================================================ */
+var BOOKING_EMAIL = 'danielolawale00@gmail.com';
+
+var currentStep = 1;
+
+function toggleChip(el) {
+  el.classList.toggle('selected');
+}
+
+function getChannels() {
+  var sel = Array.from(document.querySelectorAll('#channels .channel-chip.selected'))
+    .map(function(c){ return c.querySelector('span').textContent; });
+  return sel.length ? sel.join(', ') : 'None selected';
+}
+
+function validateStep(n) {
+  if (n === 1) {
+    var url = document.getElementById('f-website').value.trim();
+    var rev = document.getElementById('f-revenue').value;
+    return url.length > 3 && rev;
+  }
+  if (n === 2) {
+    return document.getElementById('f-constraint').value.trim().length > 5;
+  }
+  if (n === 3) {
+    var first = document.getElementById('f-first').value.trim();
+    var email = document.getElementById('f-email').value.trim();
+    var val   = document.getElementById('f-value').value.trim();
+    return first && email.indexOf('@') > 0 && val.length > 5;
+  }
+  return true;
+}
+
+function setStep(n) {
+  document.querySelectorAll('.form-step').forEach(function(s){ s.classList.remove('active'); });
+  var next = document.getElementById('step-' + n);
+  if (next) next.classList.add('active');
+  for (var i = 1; i <= 3; i++) {
+    var seg = document.getElementById('prog-' + i);
+    if (i < n) seg.classList.add('done');
+    else        seg.classList.remove('done');
+  }
+  document.getElementById('btn-back').style.display = n > 1 ? 'inline-flex' : 'none';
+  document.getElementById('step-counter').textContent = 'STEP ' + n + ' / 3';
+  document.getElementById('btn-next').textContent = n === 3 ? 'Send & Book →' : 'Continue →';
+  clearError();
+  currentStep = n;
+}
+
+function showError(msg) {
+  var el = document.getElementById('form-error');
+  el.textContent = msg || 'Please complete the required fields.';
+  el.classList.add('visible');
+}
+function clearError() {
+  document.getElementById('form-error').classList.remove('visible');
+}
+
+function formNext() {
+  if (!validateStep(currentStep)) {
+    showError(currentStep === 2 ? 'Please describe your current growth constraint.' : 'Please complete the required fields.');
+    return;
+  }
+  clearError();
+  if (currentStep < 3) { setStep(currentStep + 1); }
+  else { submitForm(); }
+}
+
+function formBack() {
+  if (currentStep > 1) setStep(currentStep - 1);
+}
+
+function submitForm() {
+  var website    = document.getElementById('f-website').value.trim();
+  var revenue    = document.getElementById('f-revenue').value;
+  var channels   = getChannels();
+  var constraint = document.getElementById('f-constraint').value.trim();
+  var first      = document.getElementById('f-first').value.trim();
+  var last       = document.getElementById('f-last').value.trim();
+  var email      = document.getElementById('f-email').value.trim();
+  var value      = document.getElementById('f-value').value.trim();
+
+  var subject = encodeURIComponent('Growth Systems Diagnostic — ' + first + ' ' + last);
+  var body = encodeURIComponent(
+    'GROWTH SYSTEMS DIAGNOSTIC REQUEST\n' +
+    '════════════════════════════════════════\n\n' +
+    'CONTACT\n' +
+    'Name:    ' + first + ' ' + last + '\n' +
+    'Email:   ' + email + '\n\n' +
+    'BUSINESS\n' +
+    'Website: ' + website + '\n' +
+    'Revenue: ' + revenue + '\n\n' +
+    'GROWTH SYSTEM\n' +
+    'Acquisition channels:\n' + channels + '\n\n' +
+    'Current growth constraint:\n' + constraint + '\n\n' +
+    'What would make this conversation valuable:\n' + value + '\n\n' +
+    '════════════════════════════════════════\n' +
+    'Submitted via Self-Funded Growth OS landing page.'
+  );
+
+  window.location.href = 'mailto:' + BOOKING_EMAIL + '?subject=' + subject + '&body=' + body;
+
+  document.querySelectorAll('.form-step').forEach(function(s){ s.classList.remove('active'); });
+  document.getElementById('form-success').classList.add('active');
+  document.getElementById('form-nav').style.display = 'none';
+  document.getElementById('form-progress').style.display = 'none';
+
+  document.getElementById('success-detail').innerHTML =
+    '<div class="success-row"><span>NAME</span><span>' + first + ' ' + last + '</span></div>' +
+    '<div class="success-row"><span>BUSINESS</span><span>' + website + '</span></div>' +
+    '<div class="success-row"><span>REVENUE</span><span>' + revenue + '</span></div>' +
+    '<div class="success-row"><span>CHANNELS</span><span>' + channels + '</span></div>';
+}
+
+
+
+/* ============================================================
+   FAQ
+============================================================ */
+function toggleFaq(btn) {
+  const item = btn.closest('.faq-item');
+  const open = item.classList.contains('open');
+  document.querySelectorAll('.faq-item.open').forEach(i => i.classList.remove('open'));
+  if (!open) item.classList.add('open');
+}
+
+/* ============================================================
+   GSAP
+============================================================ */
+gsap.registerPlugin(ScrollTrigger);
+
+gsap.from('.hero-left > *', { y:28, opacity:0, duration:0.8, stagger:0.1, ease:'power2.out', delay:0.15 });
+
+document.querySelectorAll('h2').forEach(el =>
+  gsap.from(el, { y:22, opacity:0, duration:0.7, ease:'power2.out', scrollTrigger: { trigger:el, start:'top 88%' } }));
+
+gsap.from('.os-module', { y:18, opacity:0, duration:0.55, stagger:0.09, ease:'power2.out', scrollTrigger: { trigger:'.os-grid', start:'top 82%' } });
+gsap.from('.work-block', { x:-18, opacity:0, duration:0.55, stagger:0.14, ease:'power2.out', scrollTrigger: { trigger:'.work-blocks', start:'top 78%' } });
+gsap.from('.who-panel', { y:18, opacity:0, duration:0.55, stagger:0.15, ease:'power2.out', scrollTrigger: { trigger:'.who-panels', start:'top 80%' } });
+gsap.from('.diag-line', { x:-12, opacity:0, duration:0.45, stagger:0.07, ease:'power2.out', scrollTrigger: { trigger:'.diag-lines', start:'top 84%' } });
+gsap.from('.term-row',  { y:8,   opacity:0, duration:0.4,  stagger:0.08, ease:'power2.out', scrollTrigger: { trigger:'.terminal',   start:'top 82%' } });
+
+gsap.to('#sys-line-fill', {
+  height:'100%', ease:'none',
+  scrollTrigger: { trigger:'.work-blocks', start:'top 70%', end:'bottom 30%', scrub:0.5 }
+});
+
+gsap.to('#flow-line-fill', {
+  height:'100%', ease:'none',
+  scrollTrigger: { trigger:'.flow-timeline', start:'top 72%', end:'bottom 40%', scrub:0.5 }
+});
+
+document.querySelectorAll('.flow-step').forEach(step => {
+  ScrollTrigger.create({
+    trigger: step, start: 'top 65%',
+    onEnter:     () => step.classList.add('active'),
+    onLeaveBack: () => step.classList.remove('active')
+  });
+});
+
+/* ============================================================
+   THREE.JS HELPERS
+============================================================ */
+function fit(renderer, camera, canvas) {
+  const w = canvas.clientWidth  || 400;
+  const h = canvas.clientHeight || 300;
+  if (renderer.domElement.width !== w || renderer.domElement.height !== h) {
+    renderer.setSize(w, h, false);
+    camera.aspect = w / h;
+    camera.updateProjectionMatrix();
+  }
+}
+
+function observe(canvas, start, stop) {
+  new IntersectionObserver(entries =>
+    entries.forEach(e => e.isIntersecting ? start() : stop()), { threshold:0.05 }
+  ).observe(canvas);
+}
+
+/* ============================================================
+   HERO — 4-module growth engine
+============================================================ */
+(function() {
+  const el = document.getElementById('hero-canvas');
+  if (!el || !window.THREE) return;
+
+  const R = new THREE.WebGLRenderer({ canvas:el, antialias:true, alpha:true });
+  R.setPixelRatio(Math.min(devicePixelRatio, 2));
+  R.toneMapping = THREE.ACESFilmicToneMapping;
+  R.toneMappingExposure = 1.15;
+
+  const S = new THREE.Scene();
+  const C = new THREE.PerspectiveCamera(44, 1, 0.1, 80);
+  C.position.set(0, 0, 10);
+
+  window.addEventListener('resize', () => fit(R, C, el));
+
+  S.add(new THREE.AmbientLight(0x0e0b0f, 4));
+  const gL = new THREE.PointLight(0xDFA75F, 10, 16); gL.position.set(0,3,5); S.add(gL);
+  S.add(Object.assign(new THREE.PointLight(0x4A9B9B, 4, 12), {position: new THREE.Vector3(-5,-1,3)}));
+  S.add(Object.assign(new THREE.PointLight(0x7B5EA7, 3, 10), {position: new THREE.Vector3( 5, 1,2)}));
+
+  const MODS = [
+    {pos:[-2.6, 1.3,0], color:0x4A9B9B},
+    {pos:[ 2.6, 1.3,0], color:0x7B5EA7},
+    {pos:[-2.6,-1.3,0], color:0x4A7C59},
+    {pos:[ 2.6,-1.3,0], color:0xC4852A},
+  ];
+
+  const groups = MODS.map(({pos, color}, i) => {
+    const g = new THREE.Group();
+
+    const panel = new THREE.Mesh(
+      new THREE.BoxGeometry(2.8, 1.5, 0.1),
+      new THREE.MeshStandardMaterial({color:0x111014, metalness:0.7, roughness:0.25, transparent:true, opacity:0.88})
+    );
+    g.add(panel);
+
+    const strip = new THREE.Mesh(
+      new THREE.BoxGeometry(2.8, 0.04, 0.12),
+      new THREE.MeshStandardMaterial({color, emissive:new THREE.Color(color), emissiveIntensity:0.9})
+    );
+    strip.position.y = 0.77; g.add(strip);
+
+    const edges = new THREE.LineSegments(
+      new THREE.EdgesGeometry(new THREE.BoxGeometry(2.82,1.52,0.12)),
+      new THREE.LineBasicMaterial({color, transparent:true, opacity:0.18})
+    );
+    g.add(edges);
+
+    [-0.35,0.05,0.35].forEach(yy => {
+      const l = new THREE.Line(
+        new THREE.BufferGeometry().setFromPoints([new THREE.Vector3(-1.1,yy,0.06), new THREE.Vector3(1.1,yy,0.06)]),
+        new THREE.LineBasicMaterial({color:0xffffff, transparent:true, opacity:0.035})
+      );
+      g.add(l);
+    });
+
+    g.position.set(...pos);
+    g.userData = {baseY: pos[1], phase: i * Math.PI * 0.52};
+    S.add(g); return g;
+  });
+
+  const core = new THREE.Mesh(
+    new THREE.IcosahedronGeometry(0.42, 2),
+    new THREE.MeshStandardMaterial({color:0xDFA75F, metalness:0.95, roughness:0.05, emissive:0xDFA75F, emissiveIntensity:0.18})
+  );
+  S.add(core);
+
+  const ring = new THREE.Mesh(
+    new THREE.TorusGeometry(0.72, 0.014, 8, 64),
+    new THREE.MeshStandardMaterial({color:0xDFA75F, transparent:true, opacity:0.4, emissive:0xDFA75F, emissiveIntensity:0.35})
+  );
+  ring.rotation.x = 0.55; S.add(ring);
+
+  [0x4A9B9B,0x7B5EA7,0x4A7C59,0xC4852A].forEach((c,i) => {
+    S.add(new THREE.Line(
+      new THREE.BufferGeometry().setFromPoints([new THREE.Vector3(0,0,0), new THREE.Vector3(...MODS[i].pos)]),
+      new THREE.LineBasicMaterial({color:c, transparent:true, opacity:0.2})
+    ));
+  });
+
+  const N = 140;
+  const pPos = new Float32Array(N*3);
+  const pDat = Array.from({length:N}, (_,i) => ({t:i/N, spd:0.003+Math.random()*0.005, lane:i%4, r:(Math.random()-0.5)*0.3}));
+  const paths = [
+    new THREE.CatmullRomCurve3([new THREE.Vector3(-5,1.3,0), new THREE.Vector3(-2.6,1.3,0), new THREE.Vector3(0,0,0)]),
+    new THREE.CatmullRomCurve3([new THREE.Vector3(0,0,0), new THREE.Vector3(2.6,1.3,0), new THREE.Vector3(4.5,1.3,0)]),
+    new THREE.CatmullRomCurve3([new THREE.Vector3(0,0,0), new THREE.Vector3(-2.6,-1.3,0), new THREE.Vector3(-4.5,-1.3,0)]),
+    new THREE.CatmullRomCurve3([new THREE.Vector3(0,0,0), new THREE.Vector3(2.6,-1.3,0), new THREE.Vector3(5,-1.3,0)]),
+  ];
+  const pGeo = new THREE.BufferGeometry();
+  pGeo.setAttribute('position', new THREE.BufferAttribute(pPos,3));
+  S.add(new THREE.Points(pGeo, new THREE.PointsMaterial({color:0xDFA75F, size:0.04, transparent:true, opacity:0.75, sizeAttenuation:true})));
+
+  const clk = new THREE.Clock();
+  let raf;
+  function loop() {
+    raf = requestAnimationFrame(loop);
+    fit(R, C, el);
+    const t = clk.getElapsedTime();
+
+    groups.forEach((g,i) => {
+      const ph = g.userData.phase;
+      g.position.y = g.userData.baseY + Math.sin(t*0.55+ph)*0.07;
+      g.rotation.y = Math.sin(t*0.28+ph*0.5)*0.05;
+      g.rotation.x = Math.sin(t*0.38+ph)*0.025;
+    });
+    core.rotation.x = t*0.28; core.rotation.y = t*0.46;
+    ring.rotation.z = t*0.42;
+    gL.intensity = 8+Math.sin(t*1.6)*2.5;
+
+    const pa = pGeo.attributes.position.array;
+    pDat.forEach((p,i) => {
+      p.t += p.spd; if(p.t>1){p.t=0;p.lane=Math.floor(Math.random()*4);p.r=(Math.random()-0.5)*0.3;}
+      const pt = paths[p.lane].getPoint(p.t);
+      pa[i*3]=pt.x+p.r; pa[i*3+1]=pt.y+p.r*0.5; pa[i*3+2]=pt.z+Math.sin(t*1.5+p.t*8)*0.08;
+    });
+    pGeo.attributes.position.needsUpdate = true;
+
+    C.position.x = Math.sin(t*0.14)*0.4;
+    C.position.y = Math.cos(t*0.11)*0.2;
+    C.lookAt(0,0,0);
+    R.render(S,C);
+  }
+  observe(el, loop, ()=>cancelAnimationFrame(raf));
+})();
+
+/* ============================================================
+   PROBLEM — pipeline with constriction
+============================================================ */
+(function() {
+  const el = document.getElementById('problem-canvas');
+  if (!el || !window.THREE) return;
+
+  const R = new THREE.WebGLRenderer({canvas:el, antialias:true, alpha:true});
+  R.setPixelRatio(Math.min(devicePixelRatio,2));
+  const S = new THREE.Scene();
+  const C = new THREE.PerspectiveCamera(38, 1, 0.1, 40);
+  C.position.set(0, 0.2, 8);
+  window.addEventListener('resize', ()=>fit(R,C,el));
+
+  S.add(new THREE.AmbientLight(0x0e0b0f, 5));
+  const pl1 = new THREE.PointLight(0x4A9B9B,6,12); pl1.position.set(-3,2,4); S.add(pl1);
+  const pl2 = new THREE.PointLight(0xA8653F,5,10); pl2.position.set(0,-1,4); S.add(pl2);
+
+  const path = new THREE.CatmullRomCurve3([
+    new THREE.Vector3(-4.5, 0.4,0), new THREE.Vector3(-2.5, 0.2,0),
+    new THREE.Vector3(-0.6, 0,0),   new THREE.Vector3(0,0,0),
+    new THREE.Vector3( 0.6, 0,0),   new THREE.Vector3( 2.5,-0.2,0),
+    new THREE.Vector3( 4.5,-0.4,0)
+  ]);
+
+  S.add(new THREE.Mesh(
+    new THREE.TubeGeometry(path, 80, 0.2, 10, false),
+    new THREE.MeshStandardMaterial({color:0x161419, metalness:0.75, roughness:0.2, transparent:true, opacity:0.65, side:THREE.DoubleSide})
+  ));
+
+  const cR = new THREE.Mesh(
+    new THREE.TorusGeometry(0.22, 0.025, 8, 32),
+    new THREE.MeshStandardMaterial({color:0xA8653F, emissive:0xA8653F, emissiveIntensity:0.9})
+  );
+  S.add(cR);
+  const cR2 = new THREE.Mesh(
+    new THREE.TorusGeometry(0.35, 0.01, 6, 32),
+    new THREE.MeshStandardMaterial({color:0xA8653F, transparent:true, opacity:0.35, emissive:0xA8653F, emissiveIntensity:0.4})
+  );
+  S.add(cR2);
+
+  const N = 100;
+  const pPos = new Float32Array(N*3);
+  const pDat = Array.from({length:N}, (_,i) => ({t:i/N, spd:0.004+Math.random()*0.004, r:(Math.random()-0.5)*0.12}));
+  const pGeo = new THREE.BufferGeometry();
+  pGeo.setAttribute('position', new THREE.BufferAttribute(pPos,3));
+  S.add(new THREE.Points(pGeo, new THREE.PointsMaterial({color:0x4A9B9B, size:0.045, transparent:true, opacity:0.8})));
+
+  const AN = 40;
+  const aPos = new Float32Array(AN*3);
+  const aDat = Array.from({length:AN}, ()=>({bx:-0.9+Math.random()*0.7, by:(Math.random()-0.5)*0.28, ph:Math.random()*Math.PI*2}));
+  const aGeo = new THREE.BufferGeometry();
+  aGeo.setAttribute('position', new THREE.BufferAttribute(aPos,3));
+  S.add(new THREE.Points(aGeo, new THREE.PointsMaterial({color:0xA8653F, size:0.055, transparent:true, opacity:0.65})));
+
+  const clk = new THREE.Clock(); let raf;
+  function loop() {
+    raf = requestAnimationFrame(loop); fit(R,C,el);
+    const t = clk.getElapsedTime();
+    const pa = pGeo.attributes.position.array;
+    pDat.forEach((p,i) => {
+      p.t=(p.t+p.spd)%1;
+      const pt=path.getPoint(p.t);
+      pa[i*3]=pt.x+p.r; pa[i*3+1]=pt.y+p.r*0.4; pa[i*3+2]=pt.z+Math.sin(t*2+i*0.3)*0.04;
+    });
+    pGeo.attributes.position.needsUpdate=true;
+    const aa=aGeo.attributes.position.array;
+    aDat.forEach((p,i) => {
+      aa[i*3]=p.bx+Math.sin(t*2.2+p.ph)*0.045;
+      aa[i*3+1]=p.by+Math.cos(t*1.7+p.ph)*0.045;
+      aa[i*3+2]=Math.sin(t+p.ph)*0.08;
+    });
+    aGeo.attributes.position.needsUpdate=true;
+    cR.scale.setScalar(1+Math.sin(t*3.5)*0.06);
+    cR2.rotation.z=t*0.8;
+    C.position.x=Math.sin(t*0.18)*0.25; C.lookAt(0,0,0);
+    R.render(S,C);
+  }
+  observe(el, loop, ()=>cancelAnimationFrame(raf));
+})();
+
+/* ============================================================
+   DIAGNOSE — scanning grid
+============================================================ */
+(function() {
+  const el = document.getElementById('diagnose-canvas');
+  if (!el || !window.THREE) return;
+
+  const R = new THREE.WebGLRenderer({canvas:el, antialias:true, alpha:true});
+  R.setPixelRatio(Math.min(devicePixelRatio,1.5));
+  const S = new THREE.Scene();
+  const C = new THREE.PerspectiveCamera(42, 1, 0.1, 20); C.position.set(0,0,4.5);
+  window.addEventListener('resize', ()=>fit(R,C,el));
+
+  S.add(new THREE.AmbientLight(0x0e0b0f, 4));
+  const pl = new THREE.PointLight(0xDFA75F,5,8); pl.position.set(0,2,3); S.add(pl);
+
+  const gridMats = [];
+  for(let r=-2;r<=2;r++) {
+    const geo = new THREE.BufferGeometry().setFromPoints([new THREE.Vector3(-1.8,r*0.55,0),new THREE.Vector3(1.8,r*0.55,0)]);
+    const mat = new THREE.LineBasicMaterial({color:0xDFA75F, transparent:true, opacity:0.06});
+    S.add(new THREE.Line(geo,mat)); gridMats.push(mat);
+  }
+  for(let c=-2;c<=2;c++) {
+    const geo = new THREE.BufferGeometry().setFromPoints([new THREE.Vector3(c*0.72,-1.1,0),new THREE.Vector3(c*0.72,1.1,0)]);
+    const mat = new THREE.LineBasicMaterial({color:0xDFA75F, transparent:true, opacity:0.04});
+    S.add(new THREE.Line(geo,mat)); gridMats.push(mat);
+  }
+
+  S.add(new THREE.Mesh(
+    new THREE.IcosahedronGeometry(0.38,2),
+    new THREE.MeshStandardMaterial({color:0x161419, metalness:0.85, roughness:0.15, emissive:0x4A9B9B, emissiveIntensity:0.06})
+  ));
+
+  const scanRing = new THREE.Mesh(
+    new THREE.TorusGeometry(0.55,0.018,8,48),
+    new THREE.MeshStandardMaterial({color:0xDFA75F, transparent:true, opacity:0.55, emissive:0xDFA75F, emissiveIntensity:0.4})
+  );
+  S.add(scanRing);
+
+  const clk = new THREE.Clock(); let raf; let sphere;
+  S.children.forEach(c => { if(c.isMesh && c.geometry.type==='IcosahedronGeometry') sphere=c; });
+
+  function loop() {
+    raf=requestAnimationFrame(loop); fit(R,C,el);
+    const t=clk.getElapsedTime();
+    if(sphere){sphere.rotation.y=t*0.55;sphere.rotation.x=t*0.32;}
+    scanRing.position.y=Math.sin(t*1.4)*0.9;
+    scanRing.material.opacity=0.4+Math.abs(Math.cos(t*1.4))*0.3;
+    gridMats.forEach((m,i)=>{ m.opacity=0.04+Math.sin(t*1.8+i*0.5)*0.035; });
+    R.render(S,C);
+  }
+  observe(el, loop, ()=>cancelAnimationFrame(raf));
+})();
+
+/* ============================================================
+   BUILD — components assembling
+============================================================ */
+(function() {
+  const el = document.getElementById('build-canvas');
+  if (!el || !window.THREE) return;
+
+  const R = new THREE.WebGLRenderer({canvas:el, antialias:true, alpha:true});
+  R.setPixelRatio(Math.min(devicePixelRatio,1.5));
+  const S = new THREE.Scene();
+  const C = new THREE.PerspectiveCamera(42, 1, 0.1, 20); C.position.set(0,0,5);
+  window.addEventListener('resize', ()=>fit(R,C,el));
+
+  S.add(new THREE.AmbientLight(0x0e0b0f,4));
+  const pl=new THREE.PointLight(0x7B5EA7,6,9);pl.position.set(2,2,3);S.add(pl);
+  S.add(Object.assign(new THREE.PointLight(0xDFA75F,3,8),{position:new THREE.Vector3(-2,-1,3)}));
+
+  const comps = [
+    {geo:new THREE.BoxGeometry(0.55,0.55,0.1), color:0x161419, phase:0},
+    {geo:new THREE.BoxGeometry(0.28,0.28,0.1), color:0x1c1820, phase:2.1},
+    {geo:new THREE.BoxGeometry(0.14,0.14,0.1), color:0x7B5EA7, phase:4.2},
+  ].map(({geo,color,phase}) => {
+    const m=new THREE.Mesh(geo, new THREE.MeshStandardMaterial({color, metalness:0.85, roughness:0.15}));
+    m.userData.phase=phase; S.add(m); return m;
+  });
+
+  [0.55,0.82].forEach((r,i)=>{
+    const ring=new THREE.Mesh(
+      new THREE.TorusGeometry(r,0.01,6,48),
+      new THREE.MeshBasicMaterial({color:0x7B5EA7,transparent:true,opacity:0.22-i*0.08})
+    );
+    ring.rotation.x=0.4+i*0.3; ring.userData.spd=0.5+i*0.2; S.add(ring); comps.push(ring);
+  });
+
+  const clk=new THREE.Clock(); let raf;
+  function loop() {
+    raf=requestAnimationFrame(loop); fit(R,C,el);
+    const t=clk.getElapsedTime();
+    comps.forEach((c,i)=>{
+      if(i<3){
+        const ph=c.userData.phase;
+        const sp=0.55+Math.sin(t*0.75+ph)*0.42;
+        c.position.x=Math.cos(t*0.5+ph)*sp;
+        c.position.y=Math.sin(t*0.4+ph)*sp*0.6;
+        c.rotation.z=t*0.35+ph*0.5;
+      } else { c.rotation.z+=0.008*c.userData.spd; c.rotation.x+=0.004; }
+    });
+    R.render(S,C);
+  }
+  observe(el, loop, ()=>cancelAnimationFrame(raf));
+})();
+
+/* ============================================================
+   PROVE — signal stabilising
+============================================================ */
+(function() {
+  const el = document.getElementById('prove-canvas');
+  if (!el || !window.THREE) return;
+
+  const R = new THREE.WebGLRenderer({canvas:el, antialias:true, alpha:true});
+  R.setPixelRatio(Math.min(devicePixelRatio,1.5));
+  const S = new THREE.Scene();
+  const C = new THREE.PerspectiveCamera(38, 1, 0.1, 20); C.position.set(0,0,6);
+  window.addEventListener('resize', ()=>fit(R,C,el));
+
+  S.add(new THREE.AmbientLight(0x0e0b0f,4));
+  const pl=new THREE.PointLight(0x4A7C59,5,9);pl.position.set(2,2,3);S.add(pl);
+
+  const N=72;
+  const nPos=new Float32Array(N*3), cPos=new Float32Array(N*3);
+  const nGeo=new THREE.BufferGeometry(), cGeo=new THREE.BufferGeometry();
+  nGeo.setAttribute('position',new THREE.BufferAttribute(nPos,3));
+  cGeo.setAttribute('position',new THREE.BufferAttribute(cPos,3));
+
+  const nLine=new THREE.Line(nGeo, new THREE.LineBasicMaterial({color:0x4A7C59, transparent:true, opacity:0.55}));
+  S.add(nLine);
+  S.add(new THREE.Line(cGeo, new THREE.LineBasicMaterial({color:0xDFA75F, transparent:true, opacity:0.7})));
+  S.add(new THREE.Line(
+    new THREE.BufferGeometry().setFromPoints([new THREE.Vector3(-2.2,0,0),new THREE.Vector3(2.2,0,0)]),
+    new THREE.LineBasicMaterial({color:0xffffff, transparent:true, opacity:0.06})
+  ));
+
+  const clk=new THREE.Clock(); let raf;
+  function loop() {
+    raf=requestAnimationFrame(loop); fit(R,C,el);
+    const t=clk.getElapsedTime();
+    const chaos=Math.abs(Math.sin(t*0.38))*0.6;
+    for(let i=0;i<N;i++){
+      const x=(i/(N-1))*4.4-2.2;
+      const noise=(Math.random()-0.5)*chaos*1.2;
+      const sig=Math.sin(x*2.5+t*1.8)*0.5;
+      nPos[i*3]=x; nPos[i*3+1]=sig+noise; nPos[i*3+2]=0;
+      cPos[i*3]=x; cPos[i*3+1]=sig*(1-chaos*0.7); cPos[i*3+2]=0.05;
+    }
+    nGeo.attributes.position.needsUpdate=true;
+    cGeo.attributes.position.needsUpdate=true;
+    nLine.material.opacity=0.35+chaos*0.35;
+    R.render(S,C);
+  }
+  observe(el, loop, ()=>cancelAnimationFrame(raf));
+})();
+
+/* ============================================================
+   PHILOSOPHY — turbine engine
+============================================================ */
+(function() {
+  const el = document.getElementById('philosophy-canvas');
+  if (!el || !window.THREE) return;
+
+  const R = new THREE.WebGLRenderer({canvas:el, antialias:true, alpha:true});
+  R.setPixelRatio(Math.min(devicePixelRatio,2));
+  R.toneMapping=THREE.ACESFilmicToneMapping;
+  R.toneMappingExposure=1.1;
+
+  const S = new THREE.Scene();
+  const C = new THREE.PerspectiveCamera(40, 1, 0.1, 30); C.position.set(0,0,9.5);
+  window.addEventListener('resize', ()=>fit(R,C,el));
+
+  S.add(new THREE.AmbientLight(0x0d0a06,3));
+  const gL=new THREE.PointLight(0xDFA75F,12,14); gL.position.set(0,3,5); S.add(gL);
+  S.add(Object.assign(new THREE.PointLight(0xA8653F,5,11),{position:new THREE.Vector3(-3,-2,3)}));
+
+  const outerRing=new THREE.Mesh(
+    new THREE.TorusGeometry(2.1,0.22,18,80),
+    new THREE.MeshStandardMaterial({color:0x1a1014, metalness:0.96, roughness:0.08, emissive:0xDFA75F, emissiveIntensity:0.025})
+  );
+  S.add(outerRing);
+
+  const innerRing=new THREE.Mesh(
+    new THREE.TorusGeometry(1.25,0.1,14,72),
+    new THREE.MeshStandardMaterial({color:0x161419, metalness:0.92, roughness:0.12})
+  );
+  S.add(innerRing);
+
+  const BLADES=9;
+  const bladeGrp=new THREE.Group();
+  for(let i=0;i<BLADES;i++){
+    const a=(i/BLADES)*Math.PI*2;
+    const b=new THREE.Mesh(
+      new THREE.BoxGeometry(0.07,0.85,0.04),
+      new THREE.MeshStandardMaterial({color:0x1e1820, metalness:0.96, roughness:0.04})
+    );
+    b.position.set(Math.cos(a)*1.68,Math.sin(a)*1.68,0);
+    b.rotation.z=a+Math.PI/2; bladeGrp.add(b);
+  }
+  S.add(bladeGrp);
+
+  S.add(new THREE.Mesh(
+    new THREE.CylinderGeometry(0.28,0.28,0.18,18),
+    new THREE.MeshStandardMaterial({color:0xDFA75F, metalness:0.96, roughness:0.04, emissive:0xDFA75F, emissiveIntensity:0.22})
+  ));
+
+  for(let i=0;i<4;i++){
+    const a=(i/4)*Math.PI*2;
+    S.add(new THREE.Line(
+      new THREE.BufferGeometry().setFromPoints([new THREE.Vector3(0,0,0),new THREE.Vector3(Math.cos(a)*1.25,Math.sin(a)*1.25,0)]),
+      new THREE.LineBasicMaterial({color:0xDFA75F,transparent:true,opacity:0.15})
+    ));
+  }
+
+  const IN=60;
+  const iPos=new Float32Array(IN*3);
+  const iDat=Array.from({length:IN},()=>({y:Math.random()*3.5+2.5,x:(Math.random()-0.5)*0.18,spd:0.04+Math.random()*0.025,ph:Math.random()*Math.PI*2}));
+  const iGeo=new THREE.BufferGeometry();
+  iGeo.setAttribute('position',new THREE.BufferAttribute(iPos,3));
+  S.add(new THREE.Points(iGeo, new THREE.PointsMaterial({color:0xDFA75F,size:0.05,transparent:true,opacity:0.72})));
+
+  const outSt=[-1.6,-0.55,0.55,1.6].map(xOff=>{
+    const CNT=28, positions=new Float32Array(CNT*3);
+    const data=Array.from({length:CNT},()=>({y:-(Math.random()*3+0.6),x:xOff+(Math.random()-0.5)*0.14,spd:0.038+Math.random()*0.018}));
+    const geo=new THREE.BufferGeometry(); geo.setAttribute('position',new THREE.BufferAttribute(positions,3));
+    S.add(new THREE.Points(geo,new THREE.PointsMaterial({color:0xDFA75F,size:0.04,transparent:true,opacity:0.48})));
+    return {positions,data,geo};
+  });
+
+  const clk=new THREE.Clock(); let raf;
+  function loop() {
+    raf=requestAnimationFrame(loop); fit(R,C,el);
+    const t=clk.getElapsedTime();
+    outerRing.rotation.z=t*0.55;
+    innerRing.rotation.z=-t*0.7;
+    bladeGrp.rotation.z=t*0.55;
+    gL.intensity=9+Math.sin(t*2)*2.5;
+
+    const ip=iGeo.attributes.position.array;
+    iDat.forEach((p,i)=>{
+      p.y-=p.spd; if(p.y<-2.5)p.y=3.5+Math.random();
+      ip[i*3]=p.x+Math.sin(t*1.5+p.ph)*0.045;
+      ip[i*3+1]=p.y; ip[i*3+2]=Math.sin(t+p.ph)*0.06;
+    });
+    iGeo.attributes.position.needsUpdate=true;
+
+    outSt.forEach(({positions,data,geo})=>{
+      data.forEach((p,i)=>{
+        p.y-=p.spd; if(p.y<-4.2)p.y=-0.5;
+        positions[i*3]=p.x; positions[i*3+1]=p.y; positions[i*3+2]=Math.sin(t*0.8+i)*0.04;
+      });
+      geo.attributes.position.needsUpdate=true;
+    });
+
+    C.position.x=Math.sin(t*0.14)*0.55; C.lookAt(0,0,0);
+    R.render(S,C);
+  }
+  observe(el, loop, ()=>cancelAnimationFrame(raf));
+})();
+</script>
+</body>
+</html>
