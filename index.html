@@ -280,8 +280,27 @@
       border-radius: var(--radius-lg); overflow: hidden;
       border: 1px solid var(--border); background: var(--surface);
       height: 260px; position: relative;
+      display: flex; flex-direction: column; justify-content: center;
+      padding: 1.5rem 1.75rem; gap: 0;
     }
-    .prob-canvas-wrap canvas { width: 100%; height: 100%; display: block; }
+    /* Pipeline visual */
+    .pipe-header { font-family:'JetBrains Mono',monospace; font-size:0.52rem; letter-spacing:0.18em; text-transform:uppercase; color:var(--muted-dark); margin-bottom:1.25rem; }
+    .pipe-stages { display:flex; align-items:center; gap:0; width:100%; margin-bottom:1rem; }
+    .pipe-stage { display:flex; flex-direction:column; align-items:center; gap:5px; flex:1; }
+    .pipe-bar-wrap { width:100%; height:38px; display:flex; align-items:center; justify-content:center; }
+    .pipe-bar { height:100%; border-radius:4px; transition:width 0.3s; }
+    .pipe-bar.s1 { width:90%; background:linear-gradient(90deg,rgba(74,155,155,0.55),rgba(74,155,155,0.2)); border:1px solid rgba(74,155,155,0.25); }
+    .pipe-bar.s2 { width:28%; background:linear-gradient(90deg,rgba(168,101,63,0.7),rgba(168,101,63,0.3)); border:1px solid rgba(168,101,63,0.4); animation:pipe-pulse 2s ease-in-out infinite; }
+    .pipe-bar.s3 { width:55%; background:linear-gradient(90deg,rgba(74,124,89,0.5),rgba(74,124,89,0.2)); border:1px solid rgba(74,124,89,0.2); }
+    .pipe-bar.s4 { width:45%; background:linear-gradient(90deg,rgba(196,133,42,0.45),rgba(196,133,42,0.15)); border:1px solid rgba(196,133,42,0.2); }
+    @keyframes pipe-pulse { 0%,100%{border-color:rgba(168,101,63,0.4);} 50%{border-color:rgba(168,101,63,0.85);box-shadow:0 0 8px rgba(168,101,63,0.25);} }
+    .pipe-lbl { font-family:'JetBrains Mono',monospace; font-size:0.48rem; letter-spacing:0.12em; text-transform:uppercase; color:var(--muted-dark); }
+    .pipe-lbl.hot { color:var(--copper); }
+    .pipe-arrow { color:var(--border-hi); font-size:0.65rem; flex-shrink:0; margin:0 2px; padding-bottom:20px; }
+    .pipe-constraint-row { display:flex; align-items:center; gap:8px; padding:0.6rem 0.85rem; border-radius:var(--radius); border:1px solid rgba(168,101,63,0.25); background:rgba(168,101,63,0.05); }
+    .pipe-constraint-dot { width:6px; height:6px; border-radius:50%; background:var(--copper); flex-shrink:0; animation:pipe-pulse 2s ease-in-out infinite; }
+    .pipe-constraint-text { font-family:'JetBrains Mono',monospace; font-size:0.52rem; letter-spacing:0.14em; text-transform:uppercase; color:var(--copper); }
+    .pipe-constraint-sub { font-size:0.75rem; color:var(--muted); margin-left:auto; }
     .prob-canvas-label {
       position: absolute; top: 50%; left: 50%;
       transform: translate(-50%, -50%);
@@ -978,8 +997,33 @@
         <p><strong>More activity doesn't solve that. A better system does.</strong></p>
       </div>
       <div class="prob-canvas-wrap">
-        <canvas id="problem-canvas"></canvas>
-        <span class="prob-canvas-label">CONSTRAINT</span>
+        <div class="pipe-header">GROWTH SYSTEM — PIPELINE VIEW</div>
+        <div class="pipe-stages">
+          <div class="pipe-stage">
+            <div class="pipe-bar-wrap"><div class="pipe-bar s1"></div></div>
+            <div class="pipe-lbl">ACQUIRE</div>
+          </div>
+          <div class="pipe-arrow">›</div>
+          <div class="pipe-stage">
+            <div class="pipe-bar-wrap"><div class="pipe-bar s2"></div></div>
+            <div class="pipe-lbl hot">CONVERT</div>
+          </div>
+          <div class="pipe-arrow">›</div>
+          <div class="pipe-stage">
+            <div class="pipe-bar-wrap"><div class="pipe-bar s3"></div></div>
+            <div class="pipe-lbl">RETAIN</div>
+          </div>
+          <div class="pipe-arrow">›</div>
+          <div class="pipe-stage">
+            <div class="pipe-bar-wrap"><div class="pipe-bar s4"></div></div>
+            <div class="pipe-lbl">SCALE</div>
+          </div>
+        </div>
+        <div class="pipe-constraint-row">
+          <div class="pipe-constraint-dot"></div>
+          <span class="pipe-constraint-text">CONSTRAINT DETECTED</span>
+          <span class="pipe-constraint-sub">Conversion rate suppressing downstream volume</span>
+        </div>
       </div>
     </div>
 
