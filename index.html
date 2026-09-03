@@ -452,8 +452,44 @@
     .block-canvas {
       border-radius: var(--radius); overflow: hidden;
       border: 1px solid var(--border); background: var(--surface); height: 140px;
+      display: flex; align-items: center; justify-content: center; position: relative;
     }
-    .block-canvas canvas { width: 100%; height: 100%; display: block; }
+    /* DIAGNOSE — scanning grid */
+    .bc-diagnose { width:100%; height:100%; position:relative; overflow:hidden; }
+    .bc-grid { position:absolute; inset:0;
+      background-image: linear-gradient(rgba(223,167,95,0.06) 1px, transparent 1px), linear-gradient(90deg, rgba(223,167,95,0.06) 1px, transparent 1px);
+      background-size: 22px 22px; }
+    .bc-scan { position:absolute; left:0; right:0; height:1px; background:linear-gradient(90deg,transparent,rgba(223,167,95,0.7),transparent); animation:bc-scan 2.4s ease-in-out infinite; }
+    @keyframes bc-scan { 0%{top:0;opacity:0;} 10%{opacity:1;} 90%{opacity:1;} 100%{top:100%;opacity:0;} }
+    .bc-target { position:absolute; top:50%; left:50%; transform:translate(-50%,-50%); width:40px; height:40px; }
+    .bc-target::before,.bc-target::after { content:''; position:absolute; border:1px solid rgba(223,167,95,0.5); border-radius:50%; animation:bc-pulse 2s ease-out infinite; }
+    .bc-target::before { inset:0; }
+    .bc-target::after { inset:-12px; animation-delay:0.6s; opacity:0.4; }
+    .bc-crosshair { position:absolute; inset:0; }
+    .bc-crosshair::before { content:''; position:absolute; top:50%; left:0; right:0; height:1px; background:rgba(223,167,95,0.35); }
+    .bc-crosshair::after  { content:''; position:absolute; left:50%; top:0; bottom:0; width:1px; background:rgba(223,167,95,0.35); }
+    @keyframes bc-pulse { 0%{transform:scale(0.8);opacity:0.8;} 100%{transform:scale(2.2);opacity:0;} }
+    /* BUILD — component assembly */
+    .bc-build { width:100%; height:100%; position:relative; display:flex; align-items:center; justify-content:center; gap:10px; }
+    .bc-node { width:32px; height:32px; border-radius:6px; border:1px solid rgba(223,167,95,0.3); background:rgba(223,167,95,0.06);
+      display:flex; align-items:center; justify-content:center; position:relative; }
+    .bc-node::after { content:''; width:8px; height:8px; border-radius:2px; background:rgba(223,167,95,0.55); }
+    .bc-node-lg { width:44px; height:44px; border-color:rgba(223,167,95,0.55); background:rgba(223,167,95,0.1); animation:bc-assemble 3s ease-in-out infinite; }
+    .bc-node-lg::after { width:12px; height:12px; background:var(--gold); border-radius:3px; }
+    .bc-wire { width:18px; height:1px; background:linear-gradient(90deg, rgba(223,167,95,0.4), rgba(223,167,95,0.15)); }
+    @keyframes bc-assemble { 0%,100%{box-shadow:0 0 0 0 rgba(223,167,95,0);} 50%{box-shadow:0 0 12px 2px rgba(223,167,95,0.2);} }
+    /* PROVE — signal stabilisation */
+    .bc-prove { width:100%; height:100%; position:relative; overflow:hidden; padding:0 16px; display:flex; flex-direction:column; justify-content:center; gap:8px; }
+    .bc-metric { display:flex; align-items:center; gap:10px; }
+    .bc-metric-lbl { font-family:'JetBrains Mono',monospace; font-size:0.5rem; letter-spacing:0.12em; color:var(--muted-dark); width:28px; text-align:right; flex-shrink:0; }
+    .bc-bar-track { flex:1; height:3px; background:rgba(255,255,255,0.04); border-radius:2px; overflow:hidden; }
+    .bc-bar-fill { height:100%; border-radius:2px; animation:bc-grow 2.5s cubic-bezier(0.4,0,0.2,1) infinite; }
+    .bc-bar-fill.c1 { background:var(--demand);    width:72%; animation-delay:0s; }
+    .bc-bar-fill.c2 { background:var(--gold);      width:58%; animation-delay:0.3s; }
+    .bc-bar-fill.c3 { background:var(--retention); width:84%; animation-delay:0.6s; }
+    .bc-bar-fill.c4 { background:var(--scale);     width:45%; animation-delay:0.9s; }
+    .bc-val { font-family:'JetBrains Mono',monospace; font-size:0.5rem; color:var(--muted-dark); width:26px; flex-shrink:0; }
+    @keyframes bc-grow { 0%{width:5%;opacity:0.4;} 60%{opacity:1;} 100%{width:var(--w, 72%);opacity:1;} }
 
     .wi-baseline {
       margin-top: 3rem; text-align: center; padding: 2rem;
@@ -1069,7 +1105,15 @@
           <h3>Find the constraint.</h3>
           <p>We map the journey from demand to repeat revenue and identify where growth is actually being lost.</p>
         </div>
-        <div class="block-canvas"><canvas id="diagnose-canvas"></canvas></div>
+        <div class="block-canvas">
+          <div class="bc-diagnose">
+            <div class="bc-grid"></div>
+            <div class="bc-scan"></div>
+            <div class="bc-target">
+              <div class="bc-crosshair"></div>
+            </div>
+          </div>
+        </div>
       </div>
 
       <div class="work-block">
@@ -1080,7 +1124,17 @@
           <p>We redesign the highest-leverage part of the machine—whether that means acquisition architecture,
              conversion infrastructure, retention or the connection between them.</p>
         </div>
-        <div class="block-canvas"><canvas id="build-canvas"></canvas></div>
+        <div class="block-canvas">
+          <div class="bc-build">
+            <div class="bc-node"></div>
+            <div class="bc-wire"></div>
+            <div class="bc-node bc-node-lg"></div>
+            <div class="bc-wire"></div>
+            <div class="bc-node"></div>
+            <div class="bc-wire" style="width:10px;"></div>
+            <div class="bc-node"></div>
+          </div>
+        </div>
       </div>
 
       <div class="work-block">
@@ -1091,7 +1145,30 @@
           <p>We establish a baseline before the work begins and judge the intervention against business
              outcomes rather than vanity metrics.</p>
         </div>
-        <div class="block-canvas"><canvas id="prove-canvas"></canvas></div>
+        <div class="block-canvas">
+          <div class="bc-prove">
+            <div class="bc-metric">
+              <span class="bc-metric-lbl">CAC</span>
+              <div class="bc-bar-track"><div class="bc-bar-fill c1" style="--w:72%;"></div></div>
+              <span class="bc-val">↓28%</span>
+            </div>
+            <div class="bc-metric">
+              <span class="bc-metric-lbl">CVR</span>
+              <div class="bc-bar-track"><div class="bc-bar-fill c2" style="--w:58%;"></div></div>
+              <span class="bc-val">↑18%</span>
+            </div>
+            <div class="bc-metric">
+              <span class="bc-metric-lbl">LTV</span>
+              <div class="bc-bar-track"><div class="bc-bar-fill c3" style="--w:84%;"></div></div>
+              <span class="bc-val">↑41%</span>
+            </div>
+            <div class="bc-metric">
+              <span class="bc-metric-lbl">RPR</span>
+              <div class="bc-bar-track"><div class="bc-bar-fill c4" style="--w:45%;"></div></div>
+              <span class="bc-val">↑12%</span>
+            </div>
+          </div>
+        </div>
       </div>
     </div>
 
