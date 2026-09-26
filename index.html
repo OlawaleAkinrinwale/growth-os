@@ -243,15 +243,98 @@
     /* 4 module nodes */
     .he-nodes { position:absolute; inset:0; }
     .he-node {
-      position:absolute; width:120px;
+      position:absolute; width:126px;
       border:1px solid var(--border); border-radius:var(--radius);
-      background:var(--surface); padding:0.85rem 1rem;
+      background:rgba(17, 16, 20, 0.88);
+      backdrop-filter: blur(12px);
+      -webkit-backdrop-filter: blur(12px);
+      padding:0.85rem 1rem;
       display:flex; flex-direction:column; gap:5px;
+      will-change: transform, box-shadow;
+      backface-visibility: hidden;
+      transform: translate3d(0, 0, 0);
+      transition: border-color 0.3s ease, box-shadow 0.3s ease, transform 0.3s cubic-bezier(0.16, 1, 0.3, 1);
+      z-index: 2;
     }
-    .he-node.demand     { top:12%;  left:5%;  border-top:2px solid var(--demand); }
-    .he-node.conversion { top:12%;  right:4%; border-top:2px solid var(--conversion); }
-    .he-node.retention  { bottom:12%; left:5%;  border-top:2px solid var(--retention); }
-    .he-node.scale      { bottom:12%; right:4%; border-top:2px solid var(--scale); }
+    .he-node:hover {
+      animation-play-state: paused !important;
+      border-color: rgba(255, 255, 255, 0.25);
+      cursor: default;
+    }
+    .he-node.demand {
+      top:12%; left:5%;
+      border-top:2px solid var(--demand);
+      box-shadow: 0 10px 30px -10px rgba(0, 0, 0, 0.7), 0 0 20px -6px rgba(74, 155, 155, 0.28);
+      animation: he-float-demand 5.8s cubic-bezier(0.45, 0.05, 0.55, 0.95) infinite;
+    }
+    .he-node.conversion {
+      top:12%; right:4%;
+      border-top:2px solid var(--conversion);
+      box-shadow: 0 10px 30px -10px rgba(0, 0, 0, 0.7), 0 0 20px -6px rgba(123, 94, 167, 0.28);
+      animation: he-float-conversion 6.6s cubic-bezier(0.45, 0.05, 0.55, 0.95) infinite -1.8s;
+    }
+    .he-node.retention {
+      bottom:12%; left:5%;
+      border-top:2px solid var(--retention);
+      box-shadow: 0 10px 30px -10px rgba(0, 0, 0, 0.7), 0 0 20px -6px rgba(74, 124, 89, 0.28);
+      animation: he-float-retention 6.2s cubic-bezier(0.45, 0.05, 0.55, 0.95) infinite -3.4s;
+    }
+    .he-node.scale {
+      bottom:12%; right:4%;
+      border-top:2px solid var(--scale);
+      box-shadow: 0 10px 30px -10px rgba(0, 0, 0, 0.7), 0 0 20px -6px rgba(196, 133, 42, 0.28);
+      animation: he-float-scale 7.0s cubic-bezier(0.45, 0.05, 0.55, 0.95) infinite -4.9s;
+    }
+
+    @keyframes he-float-demand {
+      0%, 100% {
+        transform: translate3d(0, 0, 0);
+        box-shadow: 0 10px 30px -10px rgba(0, 0, 0, 0.7), 0 0 20px -6px rgba(74, 155, 155, 0.28);
+      }
+      50% {
+        transform: translate3d(0, -10px, 0);
+        box-shadow: 0 18px 36px -8px rgba(0, 0, 0, 0.8), 0 0 28px -4px rgba(74, 155, 155, 0.45);
+      }
+    }
+    @keyframes he-float-conversion {
+      0%, 100% {
+        transform: translate3d(0, 0, 0);
+        box-shadow: 0 10px 30px -10px rgba(0, 0, 0, 0.7), 0 0 20px -6px rgba(123, 94, 167, 0.28);
+      }
+      50% {
+        transform: translate3d(0, -12px, 0);
+        box-shadow: 0 18px 36px -8px rgba(0, 0, 0, 0.8), 0 0 28px -4px rgba(123, 94, 167, 0.45);
+      }
+    }
+    @keyframes he-float-retention {
+      0%, 100% {
+        transform: translate3d(0, 0, 0);
+        box-shadow: 0 10px 30px -10px rgba(0, 0, 0, 0.7), 0 0 20px -6px rgba(74, 124, 89, 0.28);
+      }
+      50% {
+        transform: translate3d(0, 10px, 0);
+        box-shadow: 0 18px 36px -8px rgba(0, 0, 0, 0.8), 0 0 28px -4px rgba(74, 124, 89, 0.45);
+      }
+    }
+    @keyframes he-float-scale {
+      0%, 100% {
+        transform: translate3d(0, 0, 0);
+        box-shadow: 0 10px 30px -10px rgba(0, 0, 0, 0.7), 0 0 20px -6px rgba(196, 133, 42, 0.28);
+      }
+      50% {
+        transform: translate3d(0, 12px, 0);
+        box-shadow: 0 18px 36px -8px rgba(0, 0, 0, 0.8), 0 0 28px -4px rgba(196, 133, 42, 0.45);
+      }
+    }
+
+    @media (prefers-reduced-motion: reduce) {
+      .he-node.demand,
+      .he-node.conversion,
+      .he-node.retention,
+      .he-node.scale {
+        animation: none !important;
+      }
+    }
     .he-node-lbl { font-family:'JetBrains Mono',monospace; font-size:0.48rem; letter-spacing:0.16em; text-transform:uppercase; }
     .he-node.demand     .he-node-lbl { color:var(--demand); }
     .he-node.conversion .he-node-lbl { color:var(--conversion); }
